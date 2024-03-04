@@ -10,9 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_04_113429) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_04_153735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.string "status_like"
+    t.string "status_watch"
+    t.bigint "user_id", null: false
+    t.bigint "content_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_bookmarks_on_content_id"
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "contents", force: :cascade do |t|
+    t.string "type"
+    t.string "name"
+    t.string "picture_url"
+    t.string "streaming_platform"
+    t.string "streaming_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "genre_id", null: false
+    t.index ["genre_id"], name: "index_contents_on_genre_id"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.bigint "mood_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mood_id"], name: "index_genres_on_mood_id"
+  end
+
+  create_table "moods", force: :cascade do |t|
+    t.string "name"
+    t.string "icon_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,8 +60,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_04_113429) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookmarks", "contents"
+  add_foreign_key "bookmarks", "users"
+  add_foreign_key "contents", "genres"
+  add_foreign_key "genres", "moods"
 end
