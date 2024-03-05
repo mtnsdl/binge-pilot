@@ -1,9 +1,9 @@
 <div data-controller="recommendation">
   <h1>Let's get started!<p>What will it be?</p></h1>
-  <%= link_to '#', id: 'movie-icon', data: { action: "click->recommendation#selectMovies", recommendation_target: "image" } do %>
+  <%= link_to '#', class: 'content-icon', data: { action: "click->recommendation#selectMovies", recommendation_target: "image" } do %>
     <%= image_tag('movies_icon.png', alt: 'Movies') %>
   <% end %>
-  <%= link_to '#', id: 'tvshow-icon', data: { action: "click->recommendation#selectTVShows", recommendation_target: "image" } do %>
+  <%= link_to '#', class: 'content-icon', data: { action: "click->recommendation#selectTVShows", recommendation_target: "image" } do %>
     <%= image_tag('tvshow_icon.png', alt: 'TV shows') %>
   <% end %>
 
