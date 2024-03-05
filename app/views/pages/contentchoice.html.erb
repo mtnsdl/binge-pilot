@@ -1,0 +1,9 @@
+<h1>content choice</h1>
+
+<%= link_to moods_path(movies: true) do %>
+  <%= image_tag("movies_icon.png", alt: "Movies") %>
+<% end %>
+
+<%= link_to moods_path(movies: false) do %>
+  <%= image_tag("tvshow_icon.png", alt: "TV Shows") %>
+<% end %>
