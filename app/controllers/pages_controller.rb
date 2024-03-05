@@ -4,6 +4,13 @@ class PagesController < ApplicationController
   def home
   end
 
+  def profile
+    @user = current_user
+    # IN THE VIEW DO:
+    # @user.name
+    # @user.movies
+  end
+
   def contentchoice
   end
 
