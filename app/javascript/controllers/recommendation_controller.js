@@ -24,7 +24,7 @@ export default class extends Controller {
     }
 
   loadMovies() {
-    const apiKey = "ca66492742d84664bddc760e88bf6b2b";
+    const apiKey = ENV['TMDB_API_KEY']
     const baseUrl = "https://api.themoviedb.org/3/discover/movie";
     const queryParams = "include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
     const url = `${baseUrl}?api_key=${apiKey}&${queryParams}`;
@@ -43,7 +43,7 @@ export default class extends Controller {
   }
 
   loadTVShows() {
-    const apiKey = "ca66492742d84664bddc760e88bf6b2b";
+    const apiKey = ENV['TMDB_API_KEY']
     const baseUrl = "https://api.themoviedb.org/3/discover/tv";
     const queryParams = "include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
     const url = `${baseUrl}?api_key=${apiKey}&${queryParams}`;
