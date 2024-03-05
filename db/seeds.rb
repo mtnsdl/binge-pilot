@@ -76,25 +76,28 @@ def seed_genres(mood, genres, format)
   end
 end
 
-# Seed genres for Happy Mood
+# Seed genres for Movies Happy Mood
 puts "Seeding Happy Mood Genres for Movies..."
-seed_genres(happy_mood, movie_genres.select { |g| [35, 10751, 10402, 16, 10749].include?(g[:id]) }, 'movie')
+seed_genres(happy_mood, movie_genres.select { |g| [35, 10751, 10402, 16, 10749, 10402, 10770].include?(g[:id]) }, 'movie')
 
-puts "Seeding Happy Mood Genres for TV Shows..."
-seed_genres(happy_mood, tv_show_genres.select { |g| [35, 10751, 10762, 10764, 16].include?(g[:id]) }, 'tv-show')
-
-# Seed genres for Dramatic Mood
+# Seed genres for Movies Dramatic Mood
 puts "Seeding Dramatic Mood Genres for Movies..."
-seed_genres(dramatic_mood, movie_genres.select { |g| [18, 36, 10752, 80].include?(g[:id]) }, 'movie')
+seed_genres(dramatic_mood, movie_genres.select { |g| [18, 36, 10752, 80, 99].include?(g[:id]) }, 'movie')
 
-puts "Seeding Dramatic Mood Genres for TV Shows..."
-seed_genres(dramatic_mood, tv_show_genres.select { |g| [18, 80, 10768, 99].include?(g[:id]) }, 'tv-show')
-
-# Seed genres for Thrilling Mood
+# Seed genres for Movies Thrilling Mood
 puts "Seeding Thrilling Mood Genres for Movies..."
-seed_genres(thrilling_mood, movie_genres.select { |g| [28, 12, 53, 9648, 878, 27].include?(g[:id]) }, 'movie')
+seed_genres(thrilling_mood, movie_genres.select { |g| [28, 12, 53, 9648, 878, 27, 14, 37].include?(g[:id]) }, 'movie')
 
+# Seed genres for TVShows Happy Mood
+puts "Seeding Happy Mood Genres for TV Shows..."
+seed_genres(happy_mood, tv_show_genres.select { |g| [35, 10751, 10762, 10764, 16, 10767].include?(g[:id]) }, 'tv-show')
+
+# Seed genres for TVShows Dramatic Mood
+puts "Seeding Dramatic Mood Genres for TV Shows..."
+seed_genres(dramatic_mood, tv_show_genres.select { |g| [18, 80, 10768, 99, 10763, 10766].include?(g[:id]) }, 'tv-show')
+
+# Seed genres for TVShows Thrilling Mood
 puts "Seeding Thrilling Mood Genres for TV Shows..."
-seed_genres(thrilling_mood, tv_show_genres.select { |g| [10759, 9648, 10765].include?(g[:id]) }, 'tv-show')
+seed_genres(thrilling_mood, tv_show_genres.select { |g| [10759, 9648, 10765, 10768, 37].include?(g[:id]) }, 'tv-show')
 
 puts "Seeding completed successfully!"
