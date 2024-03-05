@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get "/contentchoice", to: "pages#contentchoice", as: :contentchoice
   get "moods", to: "pages#moods", as: :moods
   get "/bookmarks", to: "bookmarks#index", as: :bookmarks
+  
+  get "/profile", to: "pages#profile"
 
 #  get "/moviescard", to: "pages#moviescard", as: :moviescard
 # post '/recommendations', to: 'pages#recommendations'
@@ -17,5 +19,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
 
 end

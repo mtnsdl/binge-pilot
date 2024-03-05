@@ -2,6 +2,20 @@
 
 puts "Starting seed process..."
 
+
+puts "Deleting Users"
+User.destroy_all
+
+puts "Creating Users 🤷🏽‍♂️🤷🏽‍♂️🤷🏽‍♂️🤷🏽‍♂️🤷🏼‍♀️"
+User.create(first_name: "Alfonso", last_name: "Xavier", email: "alfonso@alfonso.com", password: "123456")
+User.create(first_name: "Tonno", last_name: "Tonno", email: "tonno@tonno.com", password: "123456")
+User.create(first_name: "Vio", last_name: "Vio", email: "vio@vio.com", password: "123456")
+User.create(first_name: "Martin", last_name: "Martin", email: "martin@martin.com", password: "123456")
+User.create(first_name: "Emma", last_name: "Rünzel", email: "emma@test.com", password: "123456")
+
+# t.string "first_name"
+# t.string "last_name"
+
 # Clear existing records
 puts "Clearing existing records..."
 Genre.destroy_all
