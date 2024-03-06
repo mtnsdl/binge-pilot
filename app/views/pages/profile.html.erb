@@ -1,11 +1,6 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div class="container m-4">
-  <h2>Welcome, <%= @user.first_name %>👋🏼</h2>
+
+<div class="container">
+  <h2>Welcome,  <%= @user.first_name %>👋🏼</h2>
 
 <div><%= button_to "Profile settings", edit_user_registration_path(@user), method: :get, class: "profile-button" %></div>
 
@@ -21,6 +16,5 @@
 <div>
   <div><%= button_to "What you did not liked", profile_discarded_list_path(@user), method: :get, class: "profile-button" %></div>
 </div>
-
 
 </div>

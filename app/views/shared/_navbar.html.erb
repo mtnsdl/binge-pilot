@@ -3,7 +3,7 @@
     <%= link_to request.referer do %>
       <%= image_tag("back.svg", alt: "Back", class: "navbar-icon") %>
     <% end %>
-    <a href="#">
+    <a href="<%= profile_path %>">
       <%= image_tag("profile.svg", alt: "Profile", class: "navbar-icon") %>
     </a>
   </div>
