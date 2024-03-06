@@ -1,21 +1,9 @@
-.navbar-lewagon {
-  justify-content: space-between;
-  background: white;
-}
-
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
-
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
-}
-
 .navbar {
-  height: 100px;
+  height: 80px;
   padding: 10px;
   overflow: hidden;
   position: fixed;
+  align-items: center;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -23,22 +11,18 @@
   background-color: #2F2C86;
 }
 
+.container-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 .navbar-content {
-  vertical-align: middle;
+  vertical-align: top;
   text-indent: 10px;
   text-align: center;
-}
-
-/* Base styles for the brand logo */
-.brand-logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none; /* Remove underline from h5 when inside a tag */
-}
-
-.brand-logo h5 {
-  margin-left: 10px; /* Adjust based on your design */
-  color: #000; /* Adjust based on your design */
 }
 
 /* Responsive adjustments */
@@ -51,19 +35,8 @@
     margin-top: 10px; /* Add some space between logo and menu items */
   }
 
-  .brand-logo h5 {
-    display: none;
-  }
-
-
   .navbar-content a img {
-    height: 50px; /* Adjust size as needed */
-    width: auto; /* Maintain aspect ratio */
-  }
-
-  /* If you have a specific class for the main logo, adjust as well */
-  .brand-logo img {
-    height: 25px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
     width: auto; /* Maintain aspect ratio */
   }
 }

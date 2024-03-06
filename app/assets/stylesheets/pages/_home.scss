@@ -1,42 +1,59 @@
-// Specific CSS for your home-page
+/* Specific CSS for your home-page */
 body {
+  display: flex;
+  flex-direction: column;
   background-color: #433FC0;
   color: white;
 }
 
 .container {
+  margin-top: 60px; /* This should be equal to or greater than the navbar's height */
   width: 50%;
   padding: 20px;
-  box-sizing: border-box;
+
 }
 
 
 .headline-container h1 {
   text-align: center;
+  padding: calc(10px + 2vw); /* Responsive padding */
   margin: 0 0 20px 0; /* Space below the headline */
 }
 
 .icons-container {
-  display: flex;
-  justify-content: space-around; /* Distribute space around icons */
-  align-items: center; /* Align icons vertically */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates 2 columns of equal width */
+  gap: 20px; /* Adjust the space between grid items */
 }
 
-// .icon {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 50px; /* Adjust based on your needs */
-//   height: 50px; /* Adjust based on your needs */
-//   background-color: #f0f0f0; /* Example background color */
-//   border-radius: 10px; /* Optional: for rounded corners */
-//   margin: 5px; /* Space between icons */
-//   /* Add more styling as needed */
-// }
+.mood-item {
+  text-align: center; /* Center-align the content */
+}
+
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px; /* Adjust based on your needs */
+  height: 50px; /* Adjust based on your needs */
+  background-color: #f0f0f0; /* Example background color */
+  border-radius: 10px; /* Optional: for rounded corners */
+  margin: 5px; /* Space between icons */
+  /* Add more styling as needed */
+}
 
 /* Media query for screens smaller than 768px */
 @media (max-width: 768px) {
   .container {
     width: 100%;
+  }
+
+  .navbar {
+    height: 50px; /* Adjusted height for smaller screens */
+  }
+
+  .container {
+    margin-top: 50px; /* Match the adjusted navbar height */
   }
 }
