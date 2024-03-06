@@ -1,10 +1,10 @@
 class BookmarksController < ApplicationController
-require "net/http"
-require "json"
-skip_before_action :authenticate_user!, only: [ :index, :fetch_data]
+  require "net/http"
+  require "json"
+  skip_before_action :authenticate_user!, only: [ :index, :fetch_data]
 
   def index
-    @is_movie = params[:movies] == 'true'
+    @content_format = params[:content]
     @mood = params[:mood]
     @random_movie = fetch_data
   end
