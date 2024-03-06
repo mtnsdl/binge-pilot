@@ -12,7 +12,7 @@ class BookmarksController < ApplicationController
 
   def trigger_fetch_service
     fetched_instance = FetchDataService.new(@content_format)
-    fetched_instance.call
+    fetched_instance.call_one
   end
 
   def create_bookmark

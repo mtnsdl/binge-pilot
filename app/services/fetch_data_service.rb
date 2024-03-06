@@ -18,12 +18,20 @@ class FetchDataService
     # @mood = mood
   end
 
-  def call
+  def call_one
     puts "Fetching data..."
     response = fetch_data_from_tmdb
     random_result = parse_response(response)
     random_result
   end
+
+  def call_all
+    puts "Fetching data..."
+    response = fetch_data_from_tmdb
+    random_result = parse_all_responses(response)
+    random_result
+  end
+
 
   # def mood_selection
   #   case feeling
@@ -54,5 +62,10 @@ class FetchDataService
   def parse_response(response)
     data = JSON.parse(response)
     data["results"].sample unless data.nil? || data["results"].nil?
+  end
+
+  def parse__all_responses(response)
+    data = JSON.parse(response)
+    data["results"] unless data.nil? || data["results"].nil? # || is part of forbidden forest
   end
 end
