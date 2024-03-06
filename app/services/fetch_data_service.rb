@@ -53,6 +53,6 @@ class FetchDataService
 
   def parse_response(response)
     data = JSON.parse(response)
-    data["results"].sample unless data.nil? || data["results"].nil?
+    data["results"] unless data.nil? || data["results"].nil?
   end
 end

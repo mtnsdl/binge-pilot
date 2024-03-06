@@ -8,11 +8,15 @@ class BookmarksController < ApplicationController
     @content_format = params[:content]
     @mood = params[:mood]
     @random_result = trigger_fetch_service
+    @all_movie_results = fetched_instance.call
   end
 
   def trigger_fetch_service
-    fetched_instance = FetchDataService.new(@content_format)
-    fetched_instance.call
+      fetched_instance = FetchDataService.new(@content_format)
+      list_of_movies = fetched_instance.call
+      list_of_movies.sample
+      # if bookie is selected, then create bookmark
+      # else we want to just take the title and add it to forbidden forest
   end
 
   def create_bookmark
