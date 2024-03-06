@@ -1,29 +1,18 @@
+require_relative "../services/fetch_data_service.rb"
+require_relative "../services/application_service.rb"
+
 class BookmarksController < ApplicationController
-  require "net/http"
-  require "json"
-  skip_before_action :authenticate_user!, only: [ :index, :fetch_data]
+  skip_before_action :authenticate_user!, only: [ :index, :trigger_fetch_service]
 
   def index
-    @is_movie = params[:movies] == 'true'
+    @content_format = params[:content]
     @mood = params[:mood]
-    @random_result = fetch_data
+    @random_result = trigger_fetch_service
   end
 
-  def fetch_data
-    puts "Fetching data..."
-    api_key = ENV["TMDB_API_KEY"]
-    base_url = "https://api.themoviedb.org/3/discover/movie"
-    query_params = "include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc"
-    url = "#{base_url}?api_key=#{api_key}&#{query_params}"
-    uri = URI(url)
-    response = Net::HTTP.get(uri)
-    data = JSON.parse(response)
-    unless data.nil?
-      @all_results = data["results"]
-      @random_result = @all_results.sample
-    # else
-      # @random_movie = fake movie
-    end
+  def trigger_fetch_service
+    fetched_instance = FetchDataService.new(@content_format)
+    fetched_instance.call
   end
 
   def create_bookmark

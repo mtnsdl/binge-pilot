@@ -1,16 +1,14 @@
 <div class="container">
-
-<div class="headline-container">
-<h1 class="headline">Pick your vibe...</h1>
-<pre><%= params.inspect %></pre>
-</div>
-
-
-<div class="icons-container">
-<% ['happy', 'dramatic', 'thrilling', 'random'].each do |mood| %>
-  <%= link_to bookmarks_path(movies: params[:movies], mood: mood) do %>
-    <%= image_tag("#{mood}.svg", alt: "#{mood.capitalize}", class: "mood-icon") %>
-  <% end %>
-<% end %>
-</div>
-</div>
+  <div class="headline-container">
+    <h1 class="headline">Pick your vibe...</h1>
+  </div>
+  <div class="icons-container">
+    <% ['happy', 'dramatic', 'thrilling', 'random'].each do |mood| %>
+      <%= link_to bookmarks_path(movies: params[:movies], mood: mood) do %>
+        <div class="icon-item">
+          <%= image_tag("#{mood}.svg", alt: "#{mood.capitalize}", class: "icon") %>
+          <div class="subline"><%= mood.capitalize %></div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>

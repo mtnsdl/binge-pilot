@@ -1,4 +1,26 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div class="container m-4">
   <h2>Welcome, <%= @user.first_name %>👋🏼</h2>
-  <%= link_to "Edit my profile", edit_user_registration_path(@user), class: "btn" %>
+
+<div><%= button_to "Profile settings", edit_user_registration_path(@user), method: :get, class: "profile-button" %></div>
+
+<br>
+<div>
+  <div><%= button_to "What you liked", profile_liked_list_path(@user), method: :get, class: "profile-button" %></div>
+</div>
+<br>
+<div>
+  <div><%= button_to "What have you watched", profile_watched_list_path(@user), method: :get, class: "profile-button" %></div>
+</div>
+<br>
+<div>
+  <div><%= button_to "What you did not liked", profile_discarded_list_path(@user), method: :get, class: "profile-button" %></div>
+</div>
+
+
 </div>

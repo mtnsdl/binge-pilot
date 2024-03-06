@@ -11,8 +11,22 @@ $headers-font-weight: 700;
 .headline {
   font-family: $headers-font;
   font-weight: $headers-font-weight;
-  font-size: 3.0em;
+  font-size: 2.0em;
 }
+
+.subline {
+  font-family: $headers-font;
+  font-weight: $headers-font-weight;
+  font-size: 1.5em;
+  color: white;
+  text-decoration: none;
+  text-align: center ;
+}
+
+a {
+  text-decoration: none !important;
+}
+
 
 // To use a font file (.woff) uncomment following lines
 // @font-face {

@@ -1,9 +1,19 @@
-<h1>content choice</h1>
-
-<%= link_to moods_path(movies: true) do %>
-  <%= image_tag("movie.svg", alt: "Movies", class: "content-icon") %>
-<% end %>
-
-<%= link_to moods_path(movies: false) do %>
-  <%= image_tag("tv.svg", alt: "TV Shows", class: "content-icon") %>
-<% end %>
+<div class="container">
+  <div class="headline-container">
+    <h1 class="headline">Let’s get started! <br> What will it be?</h1>
+  </div>
+  <div class="icons-container">
+    <%= link_to moods_path(movies: true) do %>
+      <div class="icon-item">
+        <%= image_tag("movie.svg", alt: "Movies", class: "icon") %>
+        <div class="subline">Movies</div>
+      </div>
+    <% end %>
+    <%= link_to moods_path(movies: false) do %>
+      <div class="icon-item">
+        <%= image_tag("tv.svg", alt: "TV Shows", class: "icon") %>
+        <div class="subline">TV Shows</div>
+      </div>
+    <% end %>
+  </div>
+</div>
