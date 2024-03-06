@@ -2,7 +2,7 @@
 <pre><%= params.inspect %></pre>
 
   <% ['happy', 'dramatic'].each do |mood| %>
-    <%= link_to bookmarks_path(movies: params[:movies], mood: mood) do %>
+    <%= link_to bookmarks_path(content: params[:content], mood: mood) do %>
       <%= image_tag("#{mood}_icon.png", alt: "#{mood.capitalize}") %>
     <% end %>
   <% end %>
@@ -10,7 +10,7 @@
 
 <div class="mood-group">
   <% ['thrilling', 'random'].each do |mood| %>
-    <%= link_to bookmarks_path(movies: params[:movies], mood: mood) do %>
+    <%= link_to bookmarks_path(content: params[:content], mood: mood) do %>
       <%= image_tag("#{mood}_icon.png", alt: "#{mood.capitalize}") %>
     <% end %>
   <% end %>

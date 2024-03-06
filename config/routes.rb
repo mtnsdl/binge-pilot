@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   get "/contentchoice", to: "pages#contentchoice", as: :contentchoice
   get "/moods", to: "pages#moods", as: :moods
   get "/bookmarks", to: "bookmarks#index", as: :bookmarks
-  get "/bookmarks/fetchapi", to:"bookmarks#fetch_data"
+  get "/bookmarks/fetchapi", to:"bookmarks#trigger_fetch_service"
+  get "/create_bookmark", to: "bookmarks#create_bookmark"
 
   get "/profile", to: "pages#profile"
 
