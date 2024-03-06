@@ -1,11 +1,5 @@
-.content-icon {
-  width: auto;
-  height: 100px;
-  fill: white;
-};
-
-.mood-icon {
-  width: 25vb; /* Example: Adjust based on parent container size or screen width */
+.icon {
+  width: 60%; /* Example: Adjust based on parent container size or screen width */
   height: auto; /* Maintains aspect ratio */
   padding: 1em; /* Makes padding responsive */
 }
