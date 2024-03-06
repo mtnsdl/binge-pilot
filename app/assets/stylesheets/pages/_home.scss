@@ -4,6 +4,39 @@ body {
   color: white;
 }
 
-.hidden {
-  display: none;
+.container {
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+.headline-container h1 {
+  text-align: center;
+  margin: 0 0 20px 0; /* Space below the headline */
+}
+
+.icons-container {
+  display: flex;
+  justify-content: space-around; /* Distribute space around icons */
+  align-items: center; /* Align icons vertically */
+}
+
+// .icon {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 50px; /* Adjust based on your needs */
+//   height: 50px; /* Adjust based on your needs */
+//   background-color: #f0f0f0; /* Example background color */
+//   border-radius: 10px; /* Optional: for rounded corners */
+//   margin: 5px; /* Space between icons */
+//   /* Add more styling as needed */
+// }
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
 }
