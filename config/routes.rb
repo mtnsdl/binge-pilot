@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   get "/contentchoice", to: "pages#contentchoice", as: :contentchoice
-  get "moods", to: "pages#moods", as: :moods
+  get "/moods", to: "pages#moods", as: :moods
   get "/bookmarks", to: "bookmarks#index", as: :bookmarks
+  get "/bookmarks/fetchapi", to:"bookmarks#fetch_data"
 
 #  get "/moviescard", to: "pages#moviescard", as: :moviescard
 # post '/recommendations', to: 'pages#recommendations'
