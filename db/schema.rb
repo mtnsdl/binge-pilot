@@ -34,7 +34,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_153121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "content_identifier"
-    t.string "api_id"
   end
 
   create_table "genres", force: :cascade do |t|
