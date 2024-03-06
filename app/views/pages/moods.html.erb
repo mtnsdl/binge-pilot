@@ -1,17 +1,14 @@
-<h1>this is the moods page</h1>
-<pre><%= params.inspect %></pre>
-
-  <% ['happy', 'dramatic'].each do |mood| %>
-    <%= link_to bookmarks_path(content: params[:content], mood: mood) do %>
-      <%= image_tag("#{mood}_icon.png", alt: "#{mood.capitalize}") %>
+<div class="container">
+  <div class="headline-container">
+    <h1 class="headline">Pick your vibe...</h1>
+  </div>
+  <div class="icons-container">
+    <% ['happy', 'dramatic', 'thrilling', 'random'].each do |mood| %>
+      <%= link_to bookmarks_path(movies: params[:movies], mood: mood) do %>
+        <div class="icon-item">
+          <%= image_tag("#{mood}.svg", alt: "#{mood.capitalize}", class: "icon") %>
+          <div class="subline"><%= mood.capitalize %></div>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
-
-<div class="mood-group">
-  <% ['thrilling', 'random'].each do |mood| %>
-    <%= link_to bookmarks_path(content: params[:content], mood: mood) do %>
-      <%= image_tag("#{mood}_icon.png", alt: "#{mood.capitalize}") %>
-    <% end %>
-  <% end %>
-</div>
+  </div>
