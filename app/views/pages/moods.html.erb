@@ -4,7 +4,7 @@
   </div>
   <div class="icons-container">
     <% ['happy', 'dramatic', 'thrilling', 'random'].each do |mood| %>
-      <%= link_to bookmarks_path(movies: params[:movies], mood: mood) do %>
+      <%= link_to bookmarks_path(content: params[:content], mood: mood) do %>
         <div class="icon-item">
           <%= image_tag("#{mood}.svg", alt: "#{mood.capitalize}", class: "icon") %>
           <div class="subline"><%= mood.capitalize %></div>

@@ -3,13 +3,13 @@
     <h1 class="headline">Let’s get started! <br> What will it be?</h1>
   </div>
   <div class="icons-container">
-    <%= link_to moods_path(movies: true) do %>
+    <%= link_to moods_path(content: :movie) do %>
       <div class="icon-item">
         <%= image_tag("movie.svg", alt: "Movies", class: "icon") %>
         <div class="subline">Movies</div>
       </div>
     <% end %>
-    <%= link_to moods_path(movies: false) do %>
+    <%= link_to moods_path(content: :tv) do %>
       <div class="icon-item">
         <%= image_tag("tv.svg", alt: "TV Shows", class: "icon") %>
         <div class="subline">TV Shows</div>
