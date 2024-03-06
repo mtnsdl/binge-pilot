@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get "/profile", to: "pages#profile"
 
+  get "/create_bookmark", to: "bookmarks#create_bookmark"
+
 #  get "/moviescard", to: "pages#moviescard", as: :moviescard
 # post '/recommendations', to: 'pages#recommendations'
 

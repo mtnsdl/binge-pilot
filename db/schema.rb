@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_05_112353) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_06_153121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,9 +33,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_05_112353) do
     t.string "streaming_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "genre_id", null: false
     t.integer "content_identifier"
-    t.index ["genre_id"], name: "index_contents_on_genre_id"
+    t.string "api_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -71,6 +70,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_05_112353) do
 
   add_foreign_key "bookmarks", "contents"
   add_foreign_key "bookmarks", "users"
-  add_foreign_key "contents", "genres"
   add_foreign_key "genres", "moods"
 end

@@ -1,12 +1,12 @@
 class BookmarksController < ApplicationController
-require "net/http"
-require "json"
-skip_before_action :authenticate_user!, only: [ :index, :fetch_data]
+  require "net/http"
+  require "json"
+  skip_before_action :authenticate_user!, only: [ :index, :fetch_data]
 
   def index
     @is_movie = params[:movies] == 'true'
     @mood = params[:mood]
-    @random_movie = fetch_data
+    @random_result = fetch_data
   end
 
   def fetch_data
@@ -18,7 +18,30 @@ skip_before_action :authenticate_user!, only: [ :index, :fetch_data]
     uri = URI(url)
     response = Net::HTTP.get(uri)
     data = JSON.parse(response)
-    @random_movie = data["results"].sample
+    unless data.nil?
+      @all_results = data["results"]
+      @random_result = @all_results.sample
+    # else
+      # @random_movie = fake movie
+    end
   end
 
+  def create_bookmark
+
+    result_params = params[:result]
+    content = Content.find_by(content_identifier: result_params[:id])
+    # content.title = result_params[:title]
+    # content.release_date = result_params[:release_date]
+
+    unless content
+      # create Content and then Bookmark
+      content = Content.create(name: result_params[:title], content_identifier: result_params[:id])
+    end
+    Bookmark.create(
+      content: content,
+      user_id: current_user.id,
+      status_like: params[:liked]
+    )
+    # raise
+  end
 end

@@ -1,7 +1,20 @@
-<h1>this is the bookmarks view</h1>
-<pre><%= params.inspect %></pre>
+<div class="container">
+  <h1>this is the bookmarks view</h1>
+  <pre><%= params.inspect %></pre>
+    <h1><%= @random_result["original_title"] %></h1>
+      <img src="https://image.tmdb.org/t/p/w500<%= @random_result["poster_path"] %>" alt="<%= @random_result["title"] %> poster">
+      <p><%= @random_result["overview"] %></p>
+    <p>Release date: <%= @random_result["release_date"] %></p>
 
-  <h1><%= @random_movie["original_title"] %></h1>
-  <img src="https://image.tmdb.org/t/p/w500<%= @random_movie["poster_path"] %>" alt="<%= @random_movie["title"] %> poster">
-  <p><%= @random_movie["overview"] %></p>
-  <p>Release date: <%= @random_movie["release_date"] %></p>
+<div id="bookmark-buttons">
+        <%= link_to create_bookmark_path(liked: false, result: @random_result), id: "discard", class: "bookmark-button" do %>
+          <%= image_tag "dislike.svg", alt: "Discard" %>
+        <% end %>
+        <%= link_to "#", id: "watch-now", class: "bookmark-button" do %>
+          <%= image_tag "watch.svg", alt: "Watch Now" %>
+        <% end %>
+        <%= link_to create_bookmark_path(liked: true, result: @random_result), id: "save-for-later", class: "bookmark-button" do %>
+          <%= image_tag "like.svg", alt: "Save for Later" %>
+        <% end %>
+    </div>
+</div>
