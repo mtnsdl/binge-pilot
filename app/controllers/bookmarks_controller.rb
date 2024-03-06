@@ -2,7 +2,6 @@ require_relative "../services/fetch_data_service.rb"
 require_relative "../services/application_service.rb"
 
 class BookmarksController < ApplicationController
-
   skip_before_action :authenticate_user!, only: [ :index, :trigger_fetch_service]
 
   def index
