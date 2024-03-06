@@ -8,13 +8,13 @@
 
 <div id="bookmark-buttons">
         <%= link_to create_bookmark_path(liked: false, result: @random_result), id: "discard", class: "bookmark-button" do %>
-          <%= image_tag "dislike.svg", alt: "Discard" %>
+          <%= image_tag "dislike.svg", alt: "Discard", class: "icon"%>
         <% end %>
         <%= link_to "#", id: "watch-now", class: "bookmark-button" do %>
-          <%= image_tag "watch.svg", alt: "Watch Now" %>
+          <%= image_tag "watch.svg", alt: "Watch Now", class: "icon"%>
         <% end %>
         <%= link_to create_bookmark_path(liked: true, result: @random_result), id: "save-for-later", class: "bookmark-button" do %>
-          <%= image_tag "like.svg", alt: "Save for Later" %>
+          <%= image_tag "like.svg", alt: "Save for Later", class: "icon" %>
         <% end %>
     </div>
 </div>

@@ -1,0 +1,20 @@
+#bookmark-buttons {
+  display: flex;
+  width: 60%;
+  justify-content: center; /* Aligns items horizontally in the center */
+  align-items: center; /* Aligns items vertically in the center */
+  gap: 10px; /* Adds space between each button */
+}
+
+.bookmark-button {
+  display: inline-flex; /* Ensures the buttons are inline and can use flex properties */
+  align-items: center; /* Vertically centers the icons within the buttons */
+  justify-content: center; /* Horizontally centers the content within the buttons */
+  /* Add additional styling here (e.g., padding, background-color) */
+}
+
+@media (max-width: 768px) {
+  #bookmark-buttons {
+    width: 100%;
+  }
+}
