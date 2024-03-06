@@ -1,4 +1,6 @@
 .navbar {
+  display: flex;
+  justify-content: center;
   height: 80px;
   padding: 10px;
   overflow: hidden;
@@ -11,12 +13,18 @@
   background-color: #2F2C86;
 }
 
+.navbar-icon {
+  height: 60px;
+  width: auto;
+  padding: 10px;
+}
+
 .container-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: 100%;
+  width: 50%;
 }
 
 .navbar-content {
@@ -39,4 +47,15 @@
     height: 20px; /* Adjust size as needed */
     width: auto; /* Maintain aspect ratio */
   }
+
+  .container-navbar {
+    width: 100%;
+  }
+
+  .navbar-icon {
+    height: 50px;
+    width: auto;
+    padding: 10px;
+  }
+
 }

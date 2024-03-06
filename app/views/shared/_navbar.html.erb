@@ -1,16 +1,10 @@
-
 <nav class="navbar">
   <div class="container-navbar">
-<%= link_to request.referer do %>
-  <%= image_tag("back.svg", alt: "Back", height: "70vh", class: "navbar-icon") %>
-<% end %>
-
-
-    <!-- Adjusted for flexbox and custom spacing. Removed erroneous "end" tag -->
-
-      <a href="#">
-        <!-- Assuming "image_tag" helper method is correctly used for inserting an image -->
-        <%= image_tag("profile.svg", alt: "Profile", height: "50px") %>
-      </a>
-    </div>
+    <%= link_to request.referer do %>
+      <%= image_tag("back.svg", alt: "Back", class: "navbar-icon") %>
+    <% end %>
+    <a href="#">
+      <%= image_tag("profile.svg", alt: "Profile", class: "navbar-icon") %>
+    </a>
+  </div>
 </nav>
