@@ -58,3 +58,33 @@
   width: 100%;
   height: 35px ;
 }
+
+.button-login, .button-signup {
+  background-color: #843FC0;
+  color: rgb(255, 255, 255);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.button-login:hover, .button-signup:hover, .button-update:hover {
+  background-color: #BCC03F;
+  color: white;
+}
+
+.button-profile:hover {
+  background-color: #843FC0;
+  color: rgb(255, 255, 255);
+}
+
+.button-delete:hover {
+  background-color: red;
+  color: rgb(255, 255, 255);
+}
+
+.button-logout:hover, .button-change-password:hover {
+  background-color: #2F2C86;
+  color: rgb(255, 255, 255);
+}
