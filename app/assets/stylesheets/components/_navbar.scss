@@ -3,13 +3,12 @@
   justify-content: center;
   height: 80px;
   padding: 10px;
-  overflow: hidden;
+  overflow: visible; /* Ensure that overflow is visible */
   position: fixed;
   align-items: center;
   top: 0;
   width: 100%;
-  z-index: 1000;
-  vertical-align: middle;
+  z-index: 1000; /* Keeps navbar above other content */
   background-color: #2F2C86;
 }
 
@@ -17,6 +16,11 @@
   height: 60px;
   width: auto;
   padding: 10px;
+}
+
+.navbar-logo {
+  height: 60px;
+  width: auto;
 }
 
 .container-navbar {
@@ -33,6 +37,15 @@
   text-align: center;
 }
 
+.overlapping-icon {
+  position: absolute;
+  bottom: -15px; // Adjust this value to control the vertical overlap
+  height: 65px;
+  left: 50%; // Positions the left edge of the icon at the center of its container
+  transform: translateX(-50%); // Centers the icon based on its own width
+  z-index: 1100;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .navbar {
@@ -40,12 +53,12 @@
   }
 
   .navbar-content {
-    margin-top: 10px; /* Add some space between logo and menu items */
+    margin-top: 10px;
   }
 
   .navbar-content a img {
-    height: 20px; /* Adjust size as needed */
-    width: auto; /* Maintain aspect ratio */
+    height: 20px;
+    width: auto;
   }
 
   .container-navbar {
@@ -58,4 +71,8 @@
     padding: 10px;
   }
 
+  .overlapping-icon {
+    height: 45px;
+    bottom: -10px; /* Adjust this value to control the overlap */
+  }
 }

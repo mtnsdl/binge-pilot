@@ -3,8 +3,16 @@
     <%= link_to request.referer do %>
       <%= image_tag("back.svg", alt: "Back", class: "navbar-icon") %>
     <% end %>
+
+    <a href="<%= contentchoice_path %>">
+  <%= image_tag("logo.svg", alt: "logo", class: "navbar-logo overlapping-icon") %>
+</a>
+
     <a href="<%= profile_path %>">
       <%= image_tag("profile.svg", alt: "Profile", class: "navbar-icon") %>
     </a>
+
+
+
   </div>
 </nav>

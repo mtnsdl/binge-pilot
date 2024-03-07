@@ -1,8 +1,19 @@
 <div class="container">
-  <div class="container">
-    <h1 class="headline">Liked list</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="headline">Liked list</h1>
+    </div>
   </div>
-
-
-
+   <div class="row">
+    <% @bookmarks.each do |bookmark| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="https://image.tmdb.org/t/p/w500<%= bookmark.content.picture_url %>" class="card-img-top" alt="<%= bookmark.content.name %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= bookmark.content.name %></h5>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
