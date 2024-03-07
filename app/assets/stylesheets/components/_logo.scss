@@ -1,0 +1,62 @@
+@keyframes fadeInRotate {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0);
+  }
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px; /* Adjust the space between the children */
+  margin-top: 70px; /* Space above the logo */
+}
+
+.logo-effect {
+  animation: fadeInRotate 2s ease-out; /* Match the duration to the timeout */
+  display: inline-block; /* Ensures transform applies correctly */
+}
+
+.logo-name {
+  font-family: $headers-font;
+  font-weight: 900;
+  font-size: 5.0em;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+/* Animation to make the logo name visible after half a second */
+@keyframes showLogoName {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.logo-name.visible {
+  animation: showLogoName 1.0s forwards;
+  animation-delay: 0.2s;
+}
+
+
+@media (max-width: 768px) {
+.logo {
+    width: 70%;
+  }
+
+
+  .logo-name {
+    font-size: 3.0em;
+  }
+}

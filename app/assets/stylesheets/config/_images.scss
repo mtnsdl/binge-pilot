@@ -1,5 +1,22 @@
-.icon {
-  width: 60%; /* Example: Adjust based on parent container size or screen width */
+.bookmark-button {
+  background: none; /* Removes the default background */
+  border: none; /* Removes the border */
+  outline: none; /* Removes the outline to prevent focus highlighting */
+  padding: 0; /* Resets padding */
+  cursor: pointer; /* Ensures it still looks clickable */
+  width: auto; /* Ensures the button size fits its content */
+  height: auto; /* Ensures the button size fits its content */
+}
+
+/* Ensuring the icon styling does not conflict */
+.icon, .interaction-icon {
+  width: 60%; /* Adjust based on parent container size or screen width */
   height: auto; /* Maintains aspect ratio */
   padding: 1em; /* Makes padding responsive */
+}
+
+@media (max-width: 768px) {
+  .interaction-icon {
+    width: 90%; /* Adjust for smaller screens */
+  }
 }
