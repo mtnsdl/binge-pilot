@@ -9,7 +9,6 @@ class BookmarksController < ApplicationController
     fetch_genres_by_mood(@mood)
     @random_result = trigger_fetch_service
     @random_result_title = @random_result["original_title"] || @random_result["original_name"]
-    raise
   end
 
   def trigger_fetch_service
