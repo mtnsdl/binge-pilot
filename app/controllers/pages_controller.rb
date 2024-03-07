@@ -17,4 +17,8 @@ class PagesController < ApplicationController
   def moods
     @is_movie = params[:movies] == "true"
   end
+
+  def liked_list
+    @bookmarks = current_user.bookmarks
+  end
 end
