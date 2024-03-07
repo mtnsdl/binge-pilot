@@ -5,8 +5,17 @@
   <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
 </div>
 
-      <div id="content-title"> <%= @random_result["original_title"] %></div>
-<div id="released">Released in <%= @random_result["release_date"].slice(0, 4) %></div>
+<div id="content-title"> <%= @random_result["original_title"] %></div>
+<div id="released">
+  Released in
+  <% if params[:content] == 'movie' && @random_result["release_date"].slice(0, 4) %>
+    <%= @random_result["release_date"].slice(0, 4) %>
+  <% elsif params[:content] == 'tv' && @random_result["first_air_date"].slice(0, 4) %>
+    <%= @random_result["first_air_date"].slice(0, 4) %>
+  <% else %>
+    Unknown
+  <% end %>
+</div>
 </div>
 </div>
 <%# <% <p><%= @random_result["overview"] %>
@@ -15,7 +24,7 @@
        <%= form_with url: create_bookmark_path, method: :post do |form| %>
       <%= hidden_field_tag :liked, false %>
       <%= hidden_field_tag :result_id, @random_result["id"] %>
-      <%= hidden_field_tag :result_title, @random_result["original_title"] %>
+      <%= hidden_field_tag :result_title, @random_result_title %>
       <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
       <%= hidden_field_tag :mood, @mood %>
       <%= hidden_field_tag :content, @content_format %>

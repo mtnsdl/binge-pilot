@@ -4,11 +4,12 @@ class BookmarksController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :trigger_fetch_service]
 
   def index
-    p params
     @content_format = params[:content]
     @mood = params[:mood]&.downcase
     fetch_genres_by_mood(@mood)
     @random_result = trigger_fetch_service
+    @random_result_title = @random_result["original_title"] || @random_result["original_name"]
+    raise
   end
 
   def trigger_fetch_service
@@ -42,6 +43,6 @@ class BookmarksController < ApplicationController
 
   def fetch_genres_by_mood(mood_name)
     mood = Mood.find_by('LOWER(name) = ?', mood_name) if mood_name.present?
-    @genres_by_mood = mood ? mood.genres : [Genre.all.sample].compact
+    @genres_by_mood = mood ? mood.genres : [Genre.all.sample]
   end
 end
