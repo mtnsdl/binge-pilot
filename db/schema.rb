@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_06_153121) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_153213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,8 +29,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_153121) do
     t.string "type"
     t.string "name"
     t.string "picture_url"
-    t.string "streaming_platform"
-    t.string "streaming_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "content_identifier"
@@ -53,6 +51,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_153121) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "providers", force: :cascade do |t|
+    t.string "streaming_platform"
+    t.string "streaming_url"
+    t.string "streaming_icon"
+    t.bigint "contents_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contents_id"], name: "index_providers_on_contents_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -70,4 +78,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_153121) do
   add_foreign_key "bookmarks", "contents"
   add_foreign_key "bookmarks", "users"
   add_foreign_key "genres", "moods"
+  add_foreign_key "providers", "contents", column: "contents_id"
 end
