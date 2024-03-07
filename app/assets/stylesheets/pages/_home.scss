@@ -4,15 +4,18 @@ body {
   flex-direction: column;
   background-color: #433FC0;
   color: white;
+  align-items: center; /* Center children horizontally */
 }
 
 .container {
   margin-top: 60px; /* This should be equal to or greater than the navbar's height */
-  width: 50%;
+  width: 80%; /* Adjust width to manage container size */
+  max-width: 1200px; /* Set a max-width to control the maximum size */
   padding: 20px;
-
+  display: flex; /* Enables flexbox properties for centering */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children (like .content-wrapper) horizontally */
 }
-
 
 .headline-container h1 {
   text-align: center;
@@ -30,7 +33,43 @@ body {
   text-align: center; /* Center-align the content */
 }
 
+.content-container {
+  padding-top: calc(10px + 2vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align the children */
+  justify-content: center;
+  gap: 5px; /* Adjust the space between the children */
+}
 
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;;
+  width: 100%; /* Take full width of its parent to align children properly */
+}
+
+.poster-container {
+  display: flex;
+  max-width: 100%; /* Ensures it does not overflow the screen width */
+  width: 50vw; /* Responsive width based on viewport width */
+  height: auto; /* Adjust height automatically based on the aspect ratio of the content */
+  aspect-ratio: 3 / 4; /* Maintain aspect ratio */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 10px;
+  border-color: #BCC03F;
+  overflow: hidden;
+}
+
+.poster-container img {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover;
+}
 
 /* Media query for screens smaller than 768px */
 @media (max-width: 768px) {
@@ -44,5 +83,24 @@ body {
 
   .container {
     margin-top: 50px; /* Match the adjusted navbar height */
+  }
+
+  .content-container {
+    padding-top: 0px;
+  }
+
+  .poster-container {
+    width: 80vw; /* Adjust width for smaller screens */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+}
+
+/* Media query for desktop screens larger than 768px */
+@media (min-width: 768px) {
+  .poster-container {
+    width: 40vw; /* Adjust the width for desktop screens to prevent it from being too large */
+    max-width: 600px; /* Set a max-width to limit its size on very large screens */
+    height: auto; /* Ensure the height adjusts based on the width to maintain aspect ratio */
   }
 }
