@@ -21,9 +21,10 @@ class BookmarksController < ApplicationController
     p params
     result_id = params[:result_id].to_i
     result_title = params[:result_title]
+ #   result_url = params[:]
     liked = params[:liked] == 'true'
 
-    content = Content.find_or_create_by(content_identifier: result_id) do |c|
+    content = Content.find_or_create_by(content_identifier: result_id, name: result_title) do |c|
       c.name = result_title
     end
 
