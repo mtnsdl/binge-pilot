@@ -1,5 +1,5 @@
 require "net/http"
-require  'URI'
+require "uri"
 require "json"
 
 class FetchDataService
