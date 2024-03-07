@@ -1,10 +1,10 @@
 require_relative "../services/fetch_data_service.rb"
-require_relative "../services/application_service.rb"
 
 class BookmarksController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :index, :trigger_fetch_service]
+  skip_before_action :authenticate_user!, only: [:index, :trigger_fetch_service]
 
   def index
+    p params
     @content_format = params[:content]
     @mood = params[:mood]&.downcase
     fetch_genres_by_mood(@mood)
@@ -14,29 +14,29 @@ class BookmarksController < ApplicationController
   def trigger_fetch_service
     fetched_instance = FetchDataService.new(@content_format)
     @all_movie_results = fetched_instance.call
-    @all_movie_results.sample
-      # if movie is selected, then create bookmark
-      # else we want to just take the title and add it to disliked list
+    @random_result = @all_movie_results&.sample
   end
 
   def create_bookmark
+    p params
+    result_id = params[:result_id].to_i
+    result_title = params[:result_title]
+    liked = params[:liked] == 'true'
 
-    result_params = params[:result]
-    content = Content.find_by(content_identifier: result_params[:id])
-    # content.title = result_params[:title]
-    # content.release_date = result_params[:release_date]
-
-    unless content
-      # create Content and then Bookmark
-      content = Content.create(name: result_params[:title], content_identifier: result_params[:id])
+    content = Content.find_or_create_by(content_identifier: result_id) do |c|
+      c.name = result_title
     end
+
     Bookmark.create(
       content: content,
-      user_id: current_user.id,
-      status_like: params[:liked]
+      user: current_user,
+      status_like: liked ? 'liked' : 'disliked',
+
     )
-    # raise
+    redirect_to bookmarks_path(mood: params[:mood], content: params[:content]), notice: "Bookmark was successfully created."
   end
+
+  private
 
   def fetch_genres_by_mood(mood_name)
     mood = Mood.find_by('LOWER(name) = ?', mood_name) if mood_name.present?

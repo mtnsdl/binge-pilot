@@ -6,14 +6,13 @@ Rails.application.routes.draw do
   get "/moods", to: "pages#moods", as: :moods
   get "/bookmarks", to: "bookmarks#index", as: :bookmarks
   get "/bookmarks/fetchapi", to:"bookmarks#trigger_fetch_service"
-  get "/create_bookmark", to: "bookmarks#create_bookmark"
 
   get "/profile", to: "pages#profile"
   get "/profile/liked_list", to: "pages#liked_list"
   get "/profile/discarded_list", to: "pages#discarded_list"
   get "/profile/watched_list", to: "pages#watched_list"
 
-  get "/create_bookmark", to: "bookmarks#create_bookmark"
+  post 'bookmarks/create', to: 'bookmarks#create_bookmark', as: :create_bookmark
 
 #  get "/moviescard", to: "pages#moviescard", as: :moviescard
 # post '/recommendations', to: 'pages#recommendations'
