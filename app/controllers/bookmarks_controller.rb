@@ -6,17 +6,17 @@ class BookmarksController < ApplicationController
 
   def index
     @content_format = params[:content]
-    @mood = params[:mood]
+    @mood = params[:mood]&.downcase
+    fetch_genres_by_mood(@mood)
     @random_result = trigger_fetch_service
-    @all_movie_results = fetched_instance.call
   end
 
   def trigger_fetch_service
-      fetched_instance = FetchDataService.new(@content_format)
-      list_of_movies = fetched_instance.call
-      list_of_movies.sample
-      # if bookie is selected, then create bookmark
-      # else we want to just take the title and add it to forbidden forest
+    fetched_instance = FetchDataService.new(@content_format)
+    @all_movie_results = fetched_instance.call
+    @all_movie_results.sample
+      # if movie is selected, then create bookmark
+      # else we want to just take the title and add it to disliked list
   end
 
   def create_bookmark
@@ -36,5 +36,10 @@ class BookmarksController < ApplicationController
       status_like: params[:liked]
     )
     # raise
+  end
+
+  def fetch_genres_by_mood(mood_name)
+    mood = Mood.find_by('LOWER(name) = ?', mood_name) if mood_name.present?
+    @genres_by_mood = mood ? mood.genres : [Genre.all.sample].compact
   end
 end

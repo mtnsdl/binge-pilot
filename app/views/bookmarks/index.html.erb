@@ -18,3 +18,10 @@
         <% end %>
     </div>
 </div>
+
+<h3>to be removed this is for Vio testing</h3>
+<ul>
+<% @genres_by_mood.each do |genre| %>
+      <li><%= genre.name %> (Identifier: <%= genre.genre_identifier %>)</li>
+    <% end %>
+</ul>
