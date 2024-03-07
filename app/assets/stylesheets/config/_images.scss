@@ -1,5 +1,18 @@
 .icon {
-  width: 60%; /* Example: Adjust based on parent container size or screen width */
+  width: 60%; /* Adjust based on parent container size or screen width */
   height: auto; /* Maintains aspect ratio */
   padding: 1em; /* Makes padding responsive */
+}
+
+.interaction-icon {
+  width: 60%; /* Adjust based on parent container size or screen width */
+  height: auto; /* Maintains aspect ratio */
+  padding: 1em; /* Makes padding responsive */
+}
+
+/* Place the @media query outside and after the specific class definitions */
+@media (max-width: 768px) {
+  .interaction-icon {
+    width: 90%; /* Adjust based on smaller screens */
+  }
 }

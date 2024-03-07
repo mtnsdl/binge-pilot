@@ -1,20 +1,23 @@
 
 <div class="container">
-  <h2>Welcome,  <%= @user.first_name %>👋🏼</h2>
+  <div class="button-position">
+    <h2>Welcome,  <%= @user.first_name %></h2>
+  </div>
 
-<div><%= button_to "Profile settings", edit_user_registration_path(@user), method: :get, class: "profile-button" %></div>
+  <div class="button-position">
+    <%= button_to "Profile settings", edit_user_registration_path(@user), method: :get, class: "button-profile" %>
+  </div>
 
-<br>
-<div>
-  <div><%= button_to "What you liked", profile_liked_list_path(@user), method: :get, class: "profile-button" %></div>
-</div>
-<br>
-<div>
-  <div><%= button_to "What have you watched", profile_watched_list_path(@user), method: :get, class: "profile-button" %></div>
-</div>
-<br>
-<div>
-  <div><%= button_to "What you did not liked", profile_discarded_list_path(@user), method: :get, class: "profile-button" %></div>
-</div>
+  <div class="button-position">
+    <%= button_to "What you liked", profile_liked_list_path(@user), method: :get, class: "button-profile" %>
+  </div>
+
+  <div class="button-position">
+    <%= button_to "What have you watched", profile_watched_list_path(@user), method: :get, class: "button-profile" %>
+  </div>
+
+  <div class="button-position">
+    <div><%= button_to "What you did not liked", profile_discarded_list_path(@user), method: :get, class: "button-profile" %>
+  </div>
 
 </div>

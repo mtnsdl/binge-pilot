@@ -27,6 +27,29 @@ a {
   text-decoration: none !important;
 }
 
+#content-title {
+  font-family: $headers-font;
+  font-weight: $headers-font-weight;
+  font-size: 3.0em;
+  color: white;
+  text-decoration: none;
+  text-align: left;
+  margin-left: 10px; /* Ensure no additional left margin */
+  padding-left: 0; /* Ensure no additional left padding */
+  margin-top: 15px;;
+}
+
+#released {
+  font-family: $body-font;
+  font-weight: $body-font-weight;
+  font-size: 1.2em;
+  color: white;
+  text-decoration: none;
+  text-align: left;
+  margin-left: 10px; /* Ensure no additional left margin */
+  padding-left: 0; /* Ensure no additional left padding */
+}
+
 @media (max-width: 768px) {
 .headline {
   font-size: 2.0em;
@@ -34,5 +57,12 @@ a {
 .subline {
   font-size: 1.5em;
 }
+
+#content-title {
+  font-size: 1.5em;
 }
 
+#released {
+  font-size: 0.8em;
+}
+}
