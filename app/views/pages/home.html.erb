@@ -1,29 +1,23 @@
-<div class="container">
-  <%= link_to contentchoice_path, id: "discard", class: "bookmark-button" do %>
-    <%= image_tag "logo.svg", alt: "Discard", class: "interaction-icon logo-effect" %>
+<div class="container" style="text-align: center;">
+  <%= link_to contentchoice_path, id: "discard" do %>
+    <%= image_tag "logo.svg", alt: "Discard", class: "logo logo-effect" %>
   <% end %>
+  <div class="logo-name">
+    Binge Pilot
+  </div>
 </div>
 
+
+
 <script>
+document.addEventListener('DOMContentLoaded', (event) => {
+  setTimeout(() => {
+    document.querySelector('.logo-name').classList.add('visible');
+  }, 500); // 500ms delay
+});
+
+
   setTimeout(function() {
     window.location.href = '<%= contentchoice_path %>';
-  }, 2300); // Redirect after 2.3 seconds
+  }, 2700); // Redirect after 2.7 seconds
 </script>
-
-<style>
-  @keyframes fadeInRotate {
-    from {
-      opacity: 0;
-      transform: rotate(-10deg);
-    }
-    to {
-      opacity: 1;
-      transform: rotate(0);
-    }
-  }
-
-  .logo-effect {
-    animation: fadeInRotate 2s ease-out; /* Match the duration to the timeout */
-    display: inline-block; /* Ensures transform applies correctly */
-  }
-</style>
