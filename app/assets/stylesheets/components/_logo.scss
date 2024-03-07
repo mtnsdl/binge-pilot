@@ -48,3 +48,15 @@
   animation: showLogoName 1.0s forwards;
   animation-delay: 0.2s;
 }
+
+
+@media (max-width: 768px) {
+.logo {
+    width: 70%;
+  }
+
+
+  .logo-name {
+    font-size: 3.0em;
+  }
+}
