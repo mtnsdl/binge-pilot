@@ -1,27 +1,31 @@
+<div class="container">
 <div class="content-container">
 <div class="content-wrapper">
 <div class="poster-container">
-  <h1>this is the bookmarks view</h1>
-  <h1><%= @random_result["original_title"] %></h1>
-  <img src="https://image.tmdb.org/t/p/w500<%= @random_result["poster_path"] %>" alt="<%= @random_result["title"] %> poster">
-  <p><%= @random_result["overview"] %></p>
-  <p>Release date: <%= @random_result["release_date"] %></p>
+  <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
+</div>
 
-  <div id="bookmark-buttons">
-    <%= form_with url: create_bookmark_path, method: :post do |form| %>
+      <div id="content-title"> <%= @random_result["original_title"] %></div>
+<div id="released">Released in <%= @random_result["release_date"].slice(0, 4) %></div>
+</div>
+</div>
+<%# <% <p><%= @random_result["overview"] %>
+
+<div id="bookmark-buttons">
+       <%= form_with url: create_bookmark_path, method: :post do |form| %>
       <%= hidden_field_tag :liked, false %>
       <%= hidden_field_tag :result_id, @random_result["id"] %>
       <%= hidden_field_tag :result_title, @random_result["original_title"] %>
       <%= hidden_field_tag :mood, @mood %>
       <%= hidden_field_tag :content, @content_format %>
       <%= button_tag(type: 'submit', id: "discard", class: "bookmark-button") do %>
-        <%= image_tag "dislike.svg", alt: "Discard", class: "icon" %>
+        <%= image_tag "dislike.svg", alt: "Discard", class: "interaction-icon" %>
       <% end %>
     <% end %>
 
-    <%= link_to "#", id: "watch-now", class: "bookmark-button" do %>
-      <%= image_tag "watch.svg", alt: "Watch Now", class: "icon" %>
-    <% end %>
+        <%= link_to "#", id: "watch-now", class: "bookmark-button" do %>
+          <%= image_tag "watch.svg", alt: "Watch Now", class: "interaction-icon"%>
+        <% end %>
 
     <%= form_with url: create_bookmark_path, method: :post do |form| %>
       <%= hidden_field_tag :liked, true %>
@@ -30,12 +34,19 @@
       <%= hidden_field_tag :mood, @mood %>
       <%= hidden_field_tag :content, @content_format %>
       <%= button_tag(type: 'submit', id: "save-for-later", class: "bookmark-button") do %>
-        <%= image_tag "like.svg", alt: "Save for Later", class: "icon" %>
+        <%= image_tag "like.svg", alt: "Save for Later", class: "interaction-icon" %>
       <% end %>
     <% end %>
-  </div>
+
+    </div>
 </div>
-</div>
+
+<h3>to be removed this is for Vio testing</h3>
+<ul>
+<% @genres_by_mood.each do |genre| %>
+      <li><%= genre.name %> (Identifier: <%= genre.genre_identifier %>)</li>
+    <% end %>
+</ul>
 
 
 <h3>display random result test</h3>
