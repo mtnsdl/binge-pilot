@@ -5,10 +5,21 @@
 }
 
 .button-profile {
-  width: 300px;
+  width: 500px;
   height: 50px;
   background-color: white;
   color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 10px;
+  box-shadow: none;
+  font-weight: bold;
+}
+
+.button-profile-settings {
+  width: 500px;
+  height: 50px;
+  background-color: #843FC0;
+  color: rgb(255, 255, 255);
   border: none;
   border-radius: 10px;
   box-shadow: none;
@@ -79,6 +90,11 @@
   color: rgb(255, 255, 255);
 }
 
+.button-profile-settings:hover {
+  background-color: #592884;
+  color: rgb(255, 255, 255);
+}
+
 .button-delete:hover {
   background-color: red;
   color: rgb(255, 255, 255);
@@ -87,4 +103,16 @@
 .button-logout:hover, .button-change-password:hover {
   background-color: #2F2C86;
   color: rgb(255, 255, 255);
+}
+
+@media (max-width: 768px) {
+  .button-profile {
+    width: 400px;
+
+  }
+
+  .button-profile-settings {
+    width: 400px;
+
+  }
 }
