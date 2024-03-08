@@ -20,7 +20,7 @@
 </div>
 
 <div id="bookmark-buttons">
-       <%= form_with url: create_bookmark_path, method: :post do |form| %>
+      <%= form_with url: create_bookmark_path, method: :post do |form| %>
       <%= hidden_field_tag :liked, false %>
       <%= hidden_field_tag :result_id, @random_result["id"] %>
       <%= hidden_field_tag :result_title, @random_result_title %>
@@ -62,4 +62,4 @@
 <h3>display random result test</h3>
 <%= @random_result %></h4>
 <h3>display all results test</h3>
-<%= @all_movie_results %></h4>
+<%= @all_content_results %></h4>
