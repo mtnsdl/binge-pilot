@@ -5,8 +5,8 @@ class BookmarksController < ApplicationController
 
   def index
     @content_format = params[:content]
-    @mood = params[:mood]&.downcase
-    fetch_genres_by_mood(@mood)
+    @mood_name = params[:mood]&.downcase
+    fetch_genres_by_mood(@mood_name, @content_format)
     @random_result = trigger_fetch_service
     @random_result_title = @random_result["original_title"] || @random_result["original_name"]
   end
@@ -40,8 +40,12 @@ class BookmarksController < ApplicationController
 
   private
 
-  def fetch_genres_by_mood(mood_name)
+  def fetch_genres_by_mood(mood_name, content_format)
     mood = Mood.find_by('LOWER(name) = ?', mood_name) if mood_name.present?
-    @genres_by_mood = mood ? mood.genres : [Genre.all.sample]
+      if mood
+        @genres_by_mood = mood.genres.where(genre_format: content_format)
+      else
+        @genres_by_mood = [Genre.where(genre_format: content_format).sample]
+    end
   end
 end
