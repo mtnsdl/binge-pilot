@@ -1,11 +1,17 @@
-
 <div class="container">
   <div class="headline-container">
-    <h1 class="headline">🎉🎉🎉🤖🎉🎉🎉<br>Welcome,  <%= @user.first_name %> <br>🎉🎉🎉⭐🎉🎉🎉</h1>
-  </div>
+    <% hour = Time.now.hour %>
+<% if hour < 12 %>
+  <h1 class="headline">Good morning, <%= @user.first_name %></h1>
+  <div class="profile-subline">Seek morning inspiration?<br>See "What you liked" or swipe for new picks.</div>
+<% elsif hour < 18 %>
+  <h1 class="headline">Good afternoon, <%= @user.first_name %></h1>
+  <div class="profile-subline">Time for a break?<br>Check "What you liked" or swipe for fresh finds.</div>
+<% else %>
+  <h1 class="headline">Good evening, <%= @user.first_name %></h1>
+  <div class="profile-subline">Evening relaxation?<br>Visit "What you liked" or swipe for evening gems.</div>
+<% end %>
 
-  <div class="button-position">
-    <%= button_to "Profile settings", edit_user_registration_path(@user), method: :get, class: "button-profile" %>
   </div>
 
   <div class="button-position">
@@ -17,7 +23,11 @@
   </div>
 
   <div class="button-position">
-    <div><%= button_to "What you did not liked", profile_discarded_list_path(@user), method: :get, class: "button-profile" %>
+    <div><%= button_to "What you did not like", profile_discarded_list_path(@user), method: :get, class: "button-profile" %></div>
+  </div>
+
+    <div class="button-position">
+    <%= button_to "Profile settings", edit_user_registration_path(@user), method: :get, class: "button-profile-settings" %>
   </div>
 
 </div>
