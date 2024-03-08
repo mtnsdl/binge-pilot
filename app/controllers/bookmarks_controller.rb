@@ -14,7 +14,7 @@ class BookmarksController < ApplicationController
   end
 
   def trigger_fetch_service
-    fetched_instance = FetchDataService.new(@content_format)
+    fetched_instance = FetchDataService.new(@content_format, @mood_name, @genres_by_mood)
     @all_content_results = fetched_instance.call
 
     disliked_content_ids = []
@@ -54,8 +54,6 @@ class BookmarksController < ApplicationController
     )
     redirect_to bookmarks_path(mood: params[:mood], content: params[:content]), notice: "Bookmark was successfully created."
   end
-
-  private
 
   def fetch_genres_by_mood(mood_name, content_format)
     mood = Mood.find_by('LOWER(name) = ?', mood_name) if mood_name.present?
