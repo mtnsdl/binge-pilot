@@ -1,0 +1,72 @@
+
+
+.headline {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  flex: 0 1 calc(33.333% - 20px);
+  display: flex;
+  background-color: #2F2C86;
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.card-img {
+  width: 100%; /* Takes the full width of its parent */
+  height: auto; /* Maintains the aspect ratio */
+  display: block;
+  object-fit: cover; /* Ensures the image covers the area, cropping if necessary */
+}
+
+.card-img-container {
+  width: 100%; 
+  padding-top: 150%;
+  position: relative;
+}
+
+.card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  object-fit: cover; /* Adjusts the image to cover the container */
+}
+
+
+
+.card-content {
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center-align the children */
+}
+
+.icon-container {
+  display: flex;
+  width: 100%; /* Ensure the container stretches to the full width of its parent */
+  justify-content: space-between; /* Push the icons to the outer edges */
+  padding: 0 15px; /* Add padding to prevent the icons from touching the edges */
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+
+
+@media (max-width: 768px) {
+  .card {
+    flex: 0 1 100%;
+  }
+}

@@ -15,6 +15,15 @@
   padding: 1em; /* Makes padding responsive */
 }
 
+.cards-icon {
+  cursor: pointer;
+  width: 50px; /* Increase the width as needed */
+  height: auto; /* Maintain the aspect ratio */
+  /* Optionally, you can add some margin if they seem too close to each other or to the text */
+  margin: 10 5px; /* Adjust the margin as needed */
+
+}
+
 @media (max-width: 768px) {
   .interaction-icon {
     width: 90%; /* Adjust for smaller screens */

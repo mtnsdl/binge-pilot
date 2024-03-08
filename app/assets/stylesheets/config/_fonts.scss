@@ -34,6 +34,14 @@ $headers-font-weight: 700;
   padding-bottom: 20px;
 }
 
+.card-title {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0; /* Adjust as needed, assuming you want to remove the bottom margin */
+  flex-grow: 1; /* Allows the title to take up the available space */
+  text-align: left; /* Aligns the text to the left */
+}
+
 a {
   text-decoration: none !important;
 }
@@ -67,6 +75,10 @@ a {
 }
 .subline {
   font-size: 1.5em;
+}
+
+.card-title {
+  font-size: 2.0em;
 }
 
 .profile-subline {
