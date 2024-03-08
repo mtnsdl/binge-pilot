@@ -19,6 +19,10 @@ class PagesController < ApplicationController
   end
 
   def liked_list
-    @bookmarks = current_user.bookmarks
+    @bookmarks = current_user.bookmarks.where(status_like: 'liked')
+  end
+
+  def discarded_list
+    @bookmarks = current_user.bookmarks.where(status_like: 'disliked')
   end
 end

@@ -5,16 +5,33 @@ class BookmarksController < ApplicationController
 
   def index
     @content_format = params[:content]
-    @mood = params[:mood]&.downcase
-    fetch_genres_by_mood(@mood)
+    @mood_name = params[:mood]&.downcase
+    fetch_genres_by_mood(@mood_name, @content_format)
     @random_result = trigger_fetch_service
-    @random_result_title = @random_result["original_title"] || @random_result["original_name"]
+    if @random_result
+      @random_result_title = @random_result["original_title"] || @random_result["original_name"]
+    end
   end
 
   def trigger_fetch_service
     fetched_instance = FetchDataService.new(@content_format)
-    @all_movie_results = fetched_instance.call
-    @random_result = @all_movie_results&.sample
+    @all_content_results = fetched_instance.call
+
+    disliked_content_ids = []
+    current_user.bookmarks.where(status_like: 'disliked').each do |bookmark|
+      disliked_content_ids << bookmark.content.content_identifier
+    end
+
+    # If either of these is nil then the movies/shows are unwatched
+    #  t.string "status_like"
+    # t.string "status_watch"
+
+    # Rejecting all Disliked Movies from the current results
+    @all_content_results.reject! { |content| disliked_content_ids.include?(content['id']) }
+    # Double-checking that there are no dublicates on ids
+    # @all_content_results.uniq! { |content| content['id'] }
+
+    @random_result = @all_content_results&.sample
   end
 
   def create_bookmark
@@ -32,7 +49,7 @@ class BookmarksController < ApplicationController
     Bookmark.create(
       content: content,
       user: current_user,
-      status_like: liked ? 'liked' : 'disliked',
+      status_like: liked ? 'liked' : 'disliked'
 
     )
     redirect_to bookmarks_path(mood: params[:mood], content: params[:content]), notice: "Bookmark was successfully created."
@@ -40,8 +57,12 @@ class BookmarksController < ApplicationController
 
   private
 
-  def fetch_genres_by_mood(mood_name)
+  def fetch_genres_by_mood(mood_name, content_format)
     mood = Mood.find_by('LOWER(name) = ?', mood_name) if mood_name.present?
-    @genres_by_mood = mood ? mood.genres : [Genre.all.sample]
+        if mood
+          @genres_by_mood = mood.genres.where(genre_format: content_format)
+        else
+          @genres_by_mood = [Genre.where(genre_format: content_format).sample]
+    end
   end
 end
