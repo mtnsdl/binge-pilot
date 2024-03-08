@@ -34,8 +34,11 @@ class BookmarksController < ApplicationController
   def trigger_fetch_service
     fetched_instance = FetchDataService.new(@content_format, @mood_name, @genres_by_mood)
     @all_content_results = fetched_instance.call
-    @new_offers = reject_offered_content(@all_content_results)
-    @random_result = @new_offers&.sample
+    raise
+    unless current_user.bookmarks.empty?
+      @new_offers = reject_offered_content(@all_content_results)
+      @random_result = @new_offers&.sample
+    end
   end
 
   def reject_offered_content(all_content_results)

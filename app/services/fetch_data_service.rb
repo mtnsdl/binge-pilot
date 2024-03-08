@@ -63,7 +63,6 @@ private
   def fetch_data_from_tmdb
     uri = URI(build_url)
     Net::HTTP.get(uri)
-    raise
   end
 
   def build_url
