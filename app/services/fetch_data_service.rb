@@ -63,6 +63,7 @@ private
   def fetch_data_from_tmdb
     uri = URI(build_url)
     Net::HTTP.get(uri)
+    raise
   end
 
   def build_url
@@ -77,12 +78,10 @@ private
       page: 1,
       sort_by: "popularity.desc",
       with_genres: @selected_genres,
-      without_genres: @excluded_genres,
+ #     without_genres: @excluded_genres,
       api_key: ENV['TMDB_API_KEY']
     }
-
     URI.encode_www_form(params)
-    raise
   end
 
   def parse_response(response)
