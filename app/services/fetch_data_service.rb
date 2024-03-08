@@ -82,6 +82,7 @@ private
     }
 
     URI.encode_www_form(params)
+    raise
   end
 
   def parse_response(response)
