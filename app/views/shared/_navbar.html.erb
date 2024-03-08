@@ -1,8 +1,9 @@
 <nav class="navbar">
   <div class="container-navbar">
-    <%= link_to request.referer do %>
-      <%= image_tag("back.svg", alt: "Back", class: "navbar-icon") %>
-    <% end %>
+<%= link_to determine_back_path do %>
+  <%= image_tag("back.svg", alt: "Back", class: "navbar-icon") %>
+<% end %>
+
 
     <a href="<%= contentchoice_path %>">
   <%= image_tag("logo.svg", alt: "logo", class: "navbar-logo overlapping-icon") %>
