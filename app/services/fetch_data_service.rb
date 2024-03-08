@@ -10,6 +10,7 @@ class FetchDataService
     @mood_name = mood_name
     @genres_by_mood = genres_by_mood
     include_query_genres
+    fetch_genres_excluding_moods
   end
 
   def call
@@ -19,23 +20,45 @@ class FetchDataService
     random_result
   end
 
-  private
-
   def include_query_genres
     @selected_genres = @genres_by_mood.pluck(:genre_identifier).join("|")
   end
 
 
-  def exclude_query_genres
-    
+def fetch_genres_excluding_moods
+  @mood = Mood.find_by('LOWER(name) = ?', @mood_name) if @mood_name.present?
+
+  excluded_genres_happy = ["thrilling", "dramatic"]
+  excluded_genres_dramatic = ["happy", "thrilling"]
+  excluded_genres_thrilling = ["happy", "dramatic"]
+
+  case @mood.name
+
+    when "Happy"
+      @excluded_genres = Genre.joins(:mood)
+      .where(genre_format: @content_format)
+      .where.not(moods: { name: excluded_genres_happy } )
+      .pluck(:genre_identifier).join(",")
+
+    when "Thrilling"
+      @excluded_genres = Genre.joins(:mood)
+      .where(genre_format: @content_format)
+      .where.not(moods: { name: excluded_genres_thrilling } )
+      .pluck(:genre_identifier).join(",")
+
+
+    when "Dramatic"
+      @excluded_genres = Genre.joins(:mood)
+      .where(genre_format: @content_format)
+      .where.not(moods: { name: excluded_genres_dramatic } )
+      .pluck(:genre_identifier).join(",")
+
+    else
+      @excluded_genres = ""
   end
-    #     if
-  #     @test = Genre.where(mood_id: ).pluck(:genre_identifier).join("|")
-  #     elsif
-  #     else
-  #   end
+end
 
-
+private
 
   def fetch_data_from_tmdb
     uri = URI(build_url)
@@ -54,11 +77,11 @@ class FetchDataService
       page: 1,
       sort_by: "popularity.desc",
       with_genres: @selected_genres,
-      api_key: ENV['TMDB_API_KEY'] # Include your API key
+      without_genres: @excluded_genres,
+      api_key: ENV['TMDB_API_KEY']
     }
 
     URI.encode_www_form(params)
-    raise
   end
 
   def parse_response(response)

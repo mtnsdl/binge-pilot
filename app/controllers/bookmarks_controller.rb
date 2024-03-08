@@ -50,7 +50,6 @@ class BookmarksController < ApplicationController
       content: content,
       user: current_user,
       status_like: liked ? 'liked' : 'disliked'
-
     )
     redirect_to bookmarks_path(mood: params[:mood], content: params[:content]), notice: "Bookmark was successfully created."
   end
