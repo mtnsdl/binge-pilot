@@ -60,9 +60,11 @@
 
 
 <h3>display random result test</h3>
-<%= @random_result %></h4>
+<%= @random_result unless @random_result.nil? %></h4>
+<h3>display all results test</h3>
+<%= @all_content_results %></h4>
 <h4>NEW OFFERS</h4>
-<p><%= @new_offers %></p>
+<p><%= @new_offers unless @new_offers.nil?  %></p>
 <h3>to be removed this is for Vio genre testing</h3>
 <ul>
 <% @genres_by_mood.each do |genre| %>

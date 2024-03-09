@@ -104,14 +104,14 @@ seed_genres(thrilling_mood, movie_genres.select { |g| [28, 12, 53, 9648, 878, 27
 
 # Seed genres for TVShows Happy Mood
 puts "Seeding Happy Mood Genres for TV Shows..."
-seed_genres(happy_mood, tv_show_genres.select { |g| [35, 10751, 10762, 10764, 16, 10767].include?(g[:id]) }, 'tv-show')
+seed_genres(happy_mood, tv_show_genres.select { |g| [35, 10751, 10762, 10764, 16, 10767].include?(g[:id]) }, 'tv')
 
 # Seed genres for TVShows Dramatic Mood
 puts "Seeding Dramatic Mood Genres for TV Shows..."
-seed_genres(dramatic_mood, tv_show_genres.select { |g| [18, 80, 10768, 99, 10763, 10766].include?(g[:id]) }, 'tv-show')
+seed_genres(dramatic_mood, tv_show_genres.select { |g| [18, 80, 10768, 99, 10763, 10766].include?(g[:id]) }, 'tv')
 
 # Seed genres for TVShows Thrilling Mood
 puts "Seeding Thrilling Mood Genres for TV Shows..."
-seed_genres(thrilling_mood, tv_show_genres.select { |g| [10759, 9648, 10765, 10768, 37].include?(g[:id]) }, 'tv-show')
+seed_genres(thrilling_mood, tv_show_genres.select { |g| [10759, 9648, 10765, 10768, 37].include?(g[:id]) }, 'tv')
 
 puts "Seeding completed successfully!"
