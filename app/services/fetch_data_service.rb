@@ -25,38 +25,36 @@ class FetchDataService
   end
 
 
-def fetch_genres_excluding_moods
-  @mood = Mood.find_by('LOWER(name) = ?', @mood_name) if @mood_name.present?
+  def fetch_genres_excluding_moods
+    @mood = Mood.find_by('LOWER(name) = ?', @mood_name.downcase) if @mood_name.present?
 
-  excluded_genres_happy = ["thrilling", "dramatic"]
-  excluded_genres_dramatic = ["happy", "thrilling"]
-  excluded_genres_thrilling = ["happy", "dramatic"]
+    excluded_genres_happy = ["thrilling", "dramatic"]
+    excluded_genres_dramatic = ["happy", "thrilling"]
+    excluded_genres_thrilling = ["happy", "dramatic"]
 
-  case @mood.name
-
-    when "Happy"
-      @excluded_genres = Genre.joins(:mood)
-      .where(genre_format: @content_format)
-      .where.not(moods: { name: excluded_genres_happy } )
-      .pluck(:genre_identifier).join(",")
-
-    when "Thrilling"
-      @excluded_genres = Genre.joins(:mood)
-      .where(genre_format: @content_format)
-      .where.not(moods: { name: excluded_genres_thrilling } )
-      .pluck(:genre_identifier).join(",")
-
-
-    when "Dramatic"
-      @excluded_genres = Genre.joins(:mood)
-      .where(genre_format: @content_format)
-      .where.not(moods: { name: excluded_genres_dramatic } )
-      .pluck(:genre_identifier).join(",")
-
+    if @mood
+      case @mood.name
+      when "Happy"
+        @excluded_genres = Genre.joins(:mood)
+                                .where(genre_format: @content_format)
+                                .where.not(moods: { name: excluded_genres_happy })
+                                .pluck(:genre_identifier).join(",")
+      when "Thrilling"
+        @excluded_genres = Genre.joins(:mood)
+                                .where(genre_format: @content_format)
+                                .where.not(moods: { name: excluded_genres_thrilling })
+                                .pluck(:genre_identifier).join(",")
+      when "Dramatic"
+        @excluded_genres = Genre.joins(:mood)
+                                .where(genre_format: @content_format)
+                                .where.not(moods: { name: excluded_genres_dramatic })
+                                .pluck(:genre_identifier).join(",")
+      end
     else
       @excluded_genres = ""
+    end
   end
-end
+
 
 private
 
