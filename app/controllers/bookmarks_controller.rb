@@ -43,7 +43,7 @@ class BookmarksController < ApplicationController
     current_user.bookmarks.where(offered: true).each do |bookmark|
       offered_content_ids << bookmark.content.content_identifier
     end
-    all_content_results.reject { |content| offered_content_ids.include? content['id'] }
+    all_content_results&.reject { |content| offered_content_ids.include? content['id'] }
   end
 
   # Madeye Moody: This is the refactored version of the code below
