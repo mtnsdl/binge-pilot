@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   post 'bookmarks/create', to: 'bookmarks#create_bookmark', as: :create_bookmark
 
+  delete '/liked_list/:id', to: 'pages#destroy', as: 'remove_from_list'
+  get '/bookmarks/:id/checkout', to: 'pages#checkout', as: 'go_to_checkout'
+
 #  get "/moviescard", to: "pages#moviescard", as: :moviescard
 # post '/recommendations', to: 'pages#recommendations'
 
