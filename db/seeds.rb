@@ -1,20 +1,13 @@
-# db/seeds.rb
-
 puts "Starting seed process..."
-
-
 puts "Deleting Users"
 User.destroy_all
 
 puts "Creating Users 🤷🏽‍♂️🤷🏽‍♂️🤷🏽‍♂️🤷🏽‍♂️🤷🏼‍♀️"
-User.create(first_name: "Alfonso", last_name: "Xavier", email: "alfonso@alfonso.com", password: "123456")
+alfonso = User.create(first_name: "Alfonso", last_name: "Xavier", email: "alfonso@alfonso.com", password: "123456")
 User.create(first_name: "Tonno", last_name: "Tonno", email: "tonno@tonno.com", password: "123456")
 User.create(first_name: "Vio", last_name: "Vio", email: "vio@vio.com", password: "123456")
 User.create(first_name: "Martin", last_name: "Martin", email: "martin@martin.com", password: "123456")
 User.create(first_name: "Emma", last_name: "Rünzel", email: "emma@test.com", password: "123456")
-
-# t.string "first_name"
-# t.string "last_name"
 
 # Clear existing records
 puts "Clearing existing records..."
@@ -114,4 +107,12 @@ seed_genres(dramatic_mood, tv_show_genres.select { |g| [18, 80, 10768, 99, 10763
 puts "Seeding Thrilling Mood Genres for TV Shows..."
 seed_genres(thrilling_mood, tv_show_genres.select { |g| [10759, 9648, 10765, 10768, 37].include?(g[:id]) }, 'tv')
 
-puts "Seeding completed successfully!"
+# Bookmarks
+Bookmark.destroy_all
+Content.destroy_all
+
+shaw = Content.create!(name: "The Shawshank Redemption", picture_url: "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEs6jGyGtR9x6W6ZpK.jpg", type: nil, content_identifier: 278)
+Bookmark.create!(user: alfonso, status_like: "liked", status_watch: nil, offered: true, content_id: shaw.id)
+
+puts "#{Bookmark.count} bookmark created."
+puts "Seeding completed successfully! 🌱"
