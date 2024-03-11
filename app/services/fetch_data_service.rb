@@ -11,6 +11,7 @@ class FetchDataService
     @genres_by_mood = genres_by_mood
     include_query_genres
     fetch_genres_excluding_moods
+    @monetization = "flatrate|free|ads|rent|buy"
   end
 
   def call
@@ -28,32 +29,27 @@ class FetchDataService
   def fetch_genres_excluding_moods
     @mood = Mood.find_by('LOWER(name) = ?', @mood_name.downcase) if @mood_name.present?
 
-    excluded_genres_happy = ["thrilling", "dramatic"]
-    excluded_genres_dramatic = ["happy", "thrilling"]
-    excluded_genres_thrilling = ["happy", "dramatic"]
+    excluded_moods = case @mood&.name
+                    when "Happy"
+                      ["Thrilling", "Dramatic"]
+                    when "Thrilling"
+                      ["Happy", "Dramatic"]
+                    when "Dramatic"
+                      ["Happy", "Thrilling"]
+                    else
+                      []
+                    end
 
     if @mood
-      case @mood.name
-      when "Happy"
-        @excluded_genres = Genre.joins(:mood)
-                                .where(genre_format: @content_format)
-                                .where.not(moods: { name: excluded_genres_happy })
-                                .pluck(:genre_identifier).join(",")
-      when "Thrilling"
-        @excluded_genres = Genre.joins(:mood)
-                                .where(genre_format: @content_format)
-                                .where.not(moods: { name: excluded_genres_thrilling })
-                                .pluck(:genre_identifier).join(",")
-      when "Dramatic"
-        @excluded_genres = Genre.joins(:mood)
-                                .where(genre_format: @content_format)
-                                .where.not(moods: { name: excluded_genres_dramatic })
-                                .pluck(:genre_identifier).join(",")
-      end
+      @excluded_genres = Genre.joins(:mood)
+                              .where(genre_format: @content_format)
+                              .where(moods: { name: excluded_moods })
+                              .pluck(:genre_identifier).join("|")
     else
       @excluded_genres = ""
     end
   end
+
 
 
 private
@@ -61,6 +57,7 @@ private
   def fetch_data_from_tmdb
     uri = URI(build_url)
     Net::HTTP.get(uri)
+    raise
   end
 
   def build_url
@@ -69,13 +66,16 @@ private
 
   def query_string
     params = {
-      include_adult: false,
-      include_video: false,
-      language: "en-US",
-      page: 1,
+      include_adult: true,
+      include_video: true,
+      locale: "DE",
+      region: "de",
+      language: "en-US|de-DE",
+      page: rand(50),
       sort_by: "popularity.desc",
       with_genres: @selected_genres,
- #     without_genres: @excluded_genres,
+      without_genres: @excluded_genres,
+      with_watch_monetization_types: @monetization,
       api_key: ENV['TMDB_API_KEY']
     }
     URI.encode_www_form(params)
