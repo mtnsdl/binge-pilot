@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller="bookmark">
   <div class="headline-container">
     <h1 class="headline">Great choice!</h1>
   </div>
@@ -6,18 +6,25 @@
 
 
 
-  <div class="button-position">
-    <%= button_to "Streaming1", "https://www.lewagon.com/de", method: :get, class: "button-streaming" %>
+  <div class="button-position"  data-action="click->bookmark#createBookmarkAndRedirect">
+    <button>Netflix</button>
   </div>
 
-  <div class="button-position">
-    <%= button_to "Streaming2", "https://www.lewagon.com/de", method: :get, class: "button-streaming" %>
+  <div class="button-position" data-controller="bookmark">
+    <%= button_to "Streaming2", "https://www.lewagon.com/de", method: :get, class: "button-streaming", id: "button-streaming-2" %>
   </div>
 
-  <div class="button-position">
-    <%= button_to "Streaming3", "https://www.lewagon.com/de", method: :get, class: "button-streaming" %>
+  <div class="button-position" data-controller="bookmark">
+    <%= button_to "Streaming3", "https://www.lewagon.com/de", method: :get, class: "button-streaming", id: "button-streaming-3" %>
   </div>
   <br>
+
+  <input type="hidden" name="content[name]" value="<%= params[:result_title] %>" data-bookmark-target="name">
+  <input type="hidden" name="content[picture]" value="<%= params[:result_picture] %>" data-bookmark-target="picture">
+  <input type="hidden" name="user[id]" value="<%= current_user.id %>" data-bookmark-target="user">
+  <input type="hidden" name="content[id]" value="<%= params[:id] %>" data-bookmark-target="id">
+
+
 
   <div class="subline">
     <% if params[:content] == 'movie' %>

@@ -19,14 +19,30 @@ class BookmarksController < ApplicationController
       content:,
       user: current_user,
       offered: true,
-      status_like: params[:liked] == 'true' ? 'liked' : 'disliked'
+      status_like: params[:liked] == 'true' ? 'liked' : 'disliked',
+      status_watch: params[:watched] == 'true' ? 'watched' : 'not_watched'
     )
+
     redirect_to bookmarks_path(mood: params[:mood], content: params[:content]), notice: "Bookmark was created 🎉"
+  end
+
+  def create_watched_bookmark
+    content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|
+      c.name = params[:result_title]
+      c.picture_url = params[:result_picture]
+    end
+
+    Bookmark.create!(
+      content:,
+      user_id: params[:user].to_i,
+      offered: true,
+      status_watch: 'true'
+    )
   end
 
   def checkout
   end
-  
+
   private
 
   def set_content_format_and_mood
