@@ -13,30 +13,37 @@
                     label: "Tell us your pretty name",
                     required: true,
                     autofocus: true,
-                    wrapper_html: { class: "not-active active" },
+                    wrapper_html: { class: "not-active active", "data-form-reveal-target": "input" },
                     input_html: { autocomplete: "first_name" } %>
 
         <%= f.input :email,
-                    label: "Give us your email",
+                    label: "Give us your email" ,
                     required: true,
                     autofocus: true,
-                    wrapper_html: { class: "not-active" },
+                    wrapper_html: { class: "not-active", "data-form-reveal-target": "input" },
                     input_html: { autocomplete: "email" }%>
 
         <%= f.input :password,
                     required: true,
-                    wrapper_html: { class: "not-active" },
+                    wrapper_html: { class: "not-active", "data-form-reveal-target": "input" },
                     hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                     input_html: { autocomplete: "new-password" } %>
 
         <%= f.input :password_confirmation,
                     required: true,
-                    wrapper_html: { class: "not-active" },
+                    wrapper_html: { class: "not-active", "data-form-reveal-target": "input" },
                     input_html: { autocomplete: "new-password" } %>
 
-        <%= f.button :submit, "Sign up", class: "button-signup not-active" %>
+        <%= f.button :submit, "Sign up", class: "button-signup d-none", data: {form_reveal_target: "submit"} %>
 
-        <button data-action="click->form-reveal#showNext active">next</button>
+        <div class="row justify-content-between">
+          <div class="col-6">
+            <button class="button-signup-element d-none" data-form-reveal-target="back" data-action="click->form-reveal#showPrevious">back</button>
+          </div>
+          <div class="col-6">
+            <button class="button-signup-element" data-form-reveal-target="next" data-action="click->form-reveal#showNext">next</button>
+          </div>
+        </div>
 
       <div class="form-actions">
 
