@@ -1,13 +1,18 @@
 require_relative "../services/fetch_data_service.rb"
+require_relative "../services/fetch_providers.rb"
 
 class BookmarksController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index]
   before_action :set_content_format_and_mood, only: :index
   before_action :fetch_genres_by_mood, only: :index
   before_action :trigger_fetch_service, only: :index
+#  before_action :fetch_streaming_links, only: :index
+#  @random_result_name_parse = @random_result["name"].gsub(" ", "-").gsub("'", "-")
+
 
   def index
     @random_result_title = @random_result["original_title"] || @random_result["original_name"]
+    @random_result_id = @random_result["id"]
   end
 
   def create_bookmark
@@ -78,4 +83,10 @@ class BookmarksController < ApplicationController
       @genres_by_mood = [Genre.where(genre_format: @content_format).sample]
     end
   end
+
+  # def fetch_streaming_links
+  #   fetched_providers = FetchMovieProviderService.new(@random_result_id, @content_format, @random_result_name_parse)
+  #   @all_streaming_providers = fetched_providers.fetch_movie_urls
+  # end
+
 end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "/moods", to: "pages#moods", as: :moods
   get "/bookmarks", to: "bookmarks#index", as: :bookmarks
   get "/bookmarks/fetchapi", to:"bookmarks#trigger_fetch_service"
+  get "/bookmarks/fetchstreaming", to:"bookmarks#fetch_streaming_links"
   get "/bookmarks/:id/checkout", to: "bookmarks#checkout", as: :bookmarks_checkout
 
   get "/profile", to: "pages#profile"
