@@ -57,7 +57,6 @@ private
   def fetch_data_from_tmdb
     uri = URI(build_url)
     Net::HTTP.get(uri)
-    raise
   end
 
   def build_url
@@ -66,7 +65,7 @@ private
 
   def query_string
     params = {
-      include_adult: true,
+      include_adult: false,
       include_video: true,
       locale: "DE",
       region: "de",

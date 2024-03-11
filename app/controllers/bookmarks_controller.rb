@@ -8,6 +8,8 @@ class BookmarksController < ApplicationController
 
   def index
     @random_result_title = @random_result["original_title"] || @random_result["original_name"]
+    @random_result_id = @random_result["id"]
+    @random_result_name_parse = @random_result["name"].gsub(" ", "-").gsub("'", "-")
   end
 
   def create_bookmark
@@ -26,7 +28,7 @@ class BookmarksController < ApplicationController
 
   def checkout
   end
-  
+
   private
 
   def set_content_format_and_mood
@@ -61,4 +63,10 @@ class BookmarksController < ApplicationController
       @genres_by_mood = [Genre.where(genre_format: @content_format).sample]
     end
   end
+
+  def fetch_streaming_links
+    @fetched_providers = FetchMovieProviderService.new(@random_result_id, @content_format, @random_result_name_parse)
+    return @fetched_providers
+  end
+
 end
