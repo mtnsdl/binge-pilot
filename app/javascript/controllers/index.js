@@ -9,3 +9,19 @@ eagerLoadControllersFrom("controllers", application)
 // Lazy load controllers as they appear in the DOM (remember not to preload controllers in import map!)
 // import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
 // lazyLoadControllersFrom("controllers", application)
+
+document.addEventListener('DOMContentLoaded', function() {
+  var container = document.querySelector('.poster-container');
+
+  container.addEventListener('click', function() {
+    this.classList.toggle('flip');
+
+    var icon = document.querySelector('.flip-icon'); // Selects the flip icon within the container
+
+    if (this.classList.contains('flip')) {
+      icon.src = icon.dataset.flipIconReverse;
+    } else {
+      icon.src = icon.dataset.flipIconInfo;
+    }
+  });
+});

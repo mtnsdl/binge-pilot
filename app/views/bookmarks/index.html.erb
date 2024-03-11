@@ -1,8 +1,14 @@
 <div class="container">
 <div class="content-container">
 <div class="content-wrapper">
-<div class="poster-container">
-  <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
+<div class="poster-container" onclick="toggleFlip()">
+<%= image_tag('info.svg', alt: "Flip Icon", class: "flip-icon", data: { flip_icon_info: image_path('info.svg'), flip_icon_reverse: image_path('reverse.svg') }) %>
+  <div class="front">
+    <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
+  </div>
+  <div class="back">
+    <p><%= @random_result['overview'] %></p>
+  </div>
 </div>
 
 <div id="content-title"> <%= @random_result_title %></div>
