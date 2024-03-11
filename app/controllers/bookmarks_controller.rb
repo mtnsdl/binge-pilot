@@ -14,6 +14,7 @@ class BookmarksController < ApplicationController
     content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|
       c.name = params[:result_title]
       c.picture_url = params[:result_picture]
+      c.medium = params[:content]
     end
     Bookmark.create(
       content:,

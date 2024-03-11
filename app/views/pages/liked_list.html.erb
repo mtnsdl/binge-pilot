@@ -10,7 +10,7 @@
           <div class="card-content">
             <h5 class="card-title"><%= bookmark.content.name %></h5>
             <div class="icon-container">
-              <%= link_to bookmarks_checkout_path(bookmark) do %>
+              <%= link_to bookmarks_checkout_path(id: bookmark.id, content: bookmark.content.medium, result_title: bookmark.content.name) do %>
                 <img src="<%= asset_path('watch.svg') %>" alt="Watch" class="cards-icon">
               <% end %>
               <%= link_to remove_from_list_path(bookmark), data: { "turbo-method": :delete} do %>
@@ -20,6 +20,8 @@
           </div>
         </div>
       <% end %>
+        <pre><%= params.inspect %></pre>
+
     </div>
   </div>
 </div>
