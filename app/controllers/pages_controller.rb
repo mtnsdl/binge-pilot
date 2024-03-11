@@ -12,7 +12,9 @@ class PagesController < ApplicationController
   end
 
   def contentchoice
+    @user = current_user
   end
+
 
   def moods
     @is_movie = params[:movies] == "true"

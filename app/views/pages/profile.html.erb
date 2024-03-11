@@ -1,18 +1,18 @@
 <div class="container">
-  <div class="headline-container">
-    <% hour = Time.now.hour %>
-<% if hour < 12 %>
-  <h1 class="headline">Good morning, <%= @user.first_name %></h1>
-  <div class="profile-subline">Seek morning inspiration?<br>See "What you liked" or swipe for new picks.</div>
-<% elsif hour < 18 %>
-  <h1 class="headline">Good afternoon, <%= @user.first_name %></h1>
-  <div class="profile-subline">Time for a break?<br>Check "What you liked" or swipe for fresh finds.</div>
-<% else %>
-  <h1 class="headline">Good evening, <%= @user.first_name %></h1>
-  <div class="profile-subline">Evening relaxation?<br>Visit "What you liked" or swipe for evening gems.</div>
-<% end %>
+<div class="headline-container">
+  <% hour = Time.now.hour %>
+  <% if hour < 12 %>
+    <h1 class="headline">Good morning, <%= @user.first_name %></h1>
+<div class="profile-subline">Seek morning inspiration?<br>See "What you liked" or <%= link_to "swipe here", bookmarks_path(content: ["movie", "tv"].sample, mood: "random") %> for new picks.</div>
+  <% elsif hour < 18 %>
+    <h1 class="headline">Good afternoon, <%= @user.first_name %></h1>
+    <div class="profile-subline">Time for a break?<br>Check "What you liked" or <%= link_to "swipe here", bookmarks_path(content: ["movie", "tv"].sample, mood: "random") %> for fresh finds.</div>
+  <% else %>
+    <h1 class="headline">Good evening, <%= @user.first_name %></h1>
+    <div class="profile-subline">Evening relaxation?<br>Visit "What you liked" or <%= link_to "swipe here", bookmarks_path(content: ["movie", "tv"].sample, mood: "random") %> for evening gems.</div>
+  <% end %>
+</div>
 
-  </div>
 
   <div class="button-position">
     <%= button_to "What you liked", profile_liked_list_path(@user), method: :get, class: "button-profile" %>

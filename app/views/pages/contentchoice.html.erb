@@ -1,6 +1,22 @@
 <div class="container">
   <div class="headline-container">
-    <h1 class="headline">Let’s get started! <br> What will it be?</h1>
+    <% current_hour = Time.now.hour %>
+    <% if current_hour >= 0 && current_hour < 12 %>
+      <% greeting = "Good morning" %>
+      <% daytime = "what's on the docket for the start of the day" %>
+    <% elsif current_hour >= 12 && current_hour < 18 %>
+      <% greeting = "Good afternoon" %>
+      <% daytime = "what's your pick today" %>
+    <% else %>
+      <% greeting = "Good evening" %>
+      <% daytime = "what's it going to be tonight" %>
+    <% end %>
+
+    <h1 class="headline"><%= greeting %> <%= @user.first_name %>, <%= daytime %>?</h1>
+  </div>
+
+
+
   </div>
   <div class="icons-container">
     <%= link_to moods_path(content: :movie) do %>
