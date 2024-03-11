@@ -13,6 +13,7 @@
 }
 
 .card {
+  border-radius: 10px;
   flex: 0 1 calc(33.333% - 20px);
   display: flex;
   background-color: #2F2C86;
@@ -21,7 +22,9 @@
   align-items: center;
   overflow: hidden;
   margin-bottom: 20px;
+  /* Ensure there's a minimum height or it grows with content */
 }
+
 
 .card-img {
   width: 100%; /* Takes the full width of its parent */
@@ -31,7 +34,7 @@
 }
 
 .card-img-container {
-  width: 100%; 
+  width: 100%;
   padding-top: 150%;
   position: relative;
 }
@@ -44,15 +47,15 @@
   object-fit: cover; /* Adjusts the image to cover the container */
 }
 
-
-
 .card-content {
   padding: 15px;
   width: 100%;
   display: flex;
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center-align the children */
+  flex-grow: 1; /* <--- This line is crucial */
 }
+
 
 .icon-container {
   display: flex;

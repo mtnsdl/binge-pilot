@@ -1,8 +1,19 @@
 <div class="container">
 <div class="content-container">
 <div class="content-wrapper">
-<div class="poster-container">
-  <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
+<div class="poster-container" data-controller="swipe" onclick="this.classList.toggle('flip')">
+
+  <div class="front">
+    <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
+      <%= image_tag('info.svg', alt: "Profile Icon", class: "flip-icon") %>
+  </div>
+  <div class="back">
+    <p><%= @random_result['overview'] %></p>
+      <%= image_tag('reverse.svg', alt: "Profile Icon", class: "flip-icon") %>
+  </div>
+
+      <button class="discard-action" style="display:none;">Discard</button>
+    <button class="save-action" style="display:none;">Save for Later</button>
 </div>
 
 <div id="content-title"> <%= @random_result_title %></div>
@@ -20,8 +31,8 @@
 </div>
 
 <div id="bookmark-buttons">
-      <%= form_with url: create_bookmark_path, method: :post do |form| %>
-      <%= hidden_field_tag :liked, false %>
+<%= form_with url: create_bookmark_path, method: :post, data: { like: 'false' } do |form| %>
+  <%= hidden_field_tag :liked, false %>
       <%= hidden_field_tag :result_id, @random_result["id"] %>
       <%= hidden_field_tag :result_title, @random_result_title %>
       <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
@@ -32,12 +43,12 @@
       <% end %>
     <% end %>
 
-        <%= link_to bookmarks_checkout_path(id: @random_result["id"], content: @content_format, result_title: @random_result_title), id: "watch-now", class: "bookmark-button" do %>
+        <%= link_to bookmarks_checkout_path(id: @random_result["id"], content: @content_format, result_title: @random_result_title, result_picture: @random_result["poster_path"]), id: "watch-now", class: "bookmark-button" do %>
           <%= image_tag "watch.svg", alt: "Watch Now", class: "interaction-icon"%>
         <% end %>
 
-    <%= form_with url: create_bookmark_path, method: :post do |form| %>
-      <%= hidden_field_tag :liked, true %>
+<%= form_with url: create_bookmark_path, method: :post, data: { like: 'true' } do |form| %>
+  <%= hidden_field_tag :liked, true %>
       <%= hidden_field_tag :result_id, @random_result["id"] %>
       <%= hidden_field_tag :result_title, @random_result["original_title"] %>
       <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
@@ -50,24 +61,3 @@
 
     </div>
 </div>
-
-<h3>to be removed this is for Vio testing</h3>
-<ul>
-<% @genres_by_mood.each do |genre| %>
-      <li><%= genre.name %> (Identifier: <%= genre.genre_identifier %>)</li>
-    <% end %>
-</ul>
-
-
-<h3>display random result test</h3>
-<%= @random_result unless @random_result.nil? %></h4>
-<h3>display all results test</h3>
-<%= @all_content_results %></h4>
-<h4>NEW OFFERS</h4>
-<p><%= @new_offers unless @new_offers.nil?  %></p>
-<h3>to be removed this is for Vio genre testing</h3>
-<ul>
-<% @genres_by_mood.each do |genre| %>
-      <li><%= genre.name %> (Identifier: <%= genre.genre_identifier %>)</li>
-    <% end %>
-</ul>

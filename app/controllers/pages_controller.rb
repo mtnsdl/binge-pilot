@@ -15,7 +15,6 @@ class PagesController < ApplicationController
     @user = current_user
   end
 
-
   def moods
     @is_movie = params[:movies] == "true"
   end
@@ -26,6 +25,10 @@ class PagesController < ApplicationController
 
   def discarded_list
     @bookmarks_disliked = current_user.bookmarks.where(status_like: 'disliked')
+  end
+
+  def watched_list
+    @bookmarks_watched = current_user.bookmarks.where(status_watch: 'true')
   end
 
   def destroy
@@ -39,10 +42,3 @@ class PagesController < ApplicationController
     end
   end
 end
-
-
-
-# def destroy
-#   @cloud.destroy
-#   redirect_to clouds_path, notice: 'Cloud was successfully destroyed.'
-# end

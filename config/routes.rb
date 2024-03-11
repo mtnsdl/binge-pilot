@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   get "/bookmarks", to: "bookmarks#index", as: :bookmarks
   get "/bookmarks/fetchapi", to:"bookmarks#trigger_fetch_service"
   get "/bookmarks/fetchstreaming", to:"bookmarks#fetch_streaming_links"
-
-  get "/bookmarks/fetchapi/checkout", to: "bookmarks#checkout", as: :checkout
+  get "/bookmarks/:id/checkout", to: "bookmarks#checkout", as: :bookmarks_checkout
 
   get "/profile", to: "pages#profile"
   get "/profile/liked_list", to: "pages#liked_list"
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
   get "/profile/watched_list", to: "pages#watched_list"
 
   post 'bookmarks/create', to: 'bookmarks#create_bookmark', as: :create_bookmark
+  post 'bookmarks/create_watched_bookmark', to: 'bookmarks#create_watched_bookmark', as: :create_watched_bookmark
 
   delete '/liked_list/:id', to: 'pages#destroy', as: 'remove_from_list'
   get '/bookmarks/:id/checkout', to: 'pages#checkout', as: 'go_to_checkout'
