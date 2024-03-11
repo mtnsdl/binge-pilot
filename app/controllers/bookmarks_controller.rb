@@ -10,7 +10,6 @@ class BookmarksController < ApplicationController
     @random_result_title = @random_result["original_title"] || @random_result["original_name"]
   end
 
-
   def create_bookmark
     content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|
       c.name = params[:result_title]
@@ -25,6 +24,9 @@ class BookmarksController < ApplicationController
     redirect_to bookmarks_path(mood: params[:mood], content: params[:content]), notice: "Bookmark was created 🎉"
   end
 
+  def checkout
+  end
+  
   private
 
   def set_content_format_and_mood
