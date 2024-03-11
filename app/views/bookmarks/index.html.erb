@@ -32,7 +32,7 @@
       <% end %>
     <% end %>
 
-        <%= link_to "/bookmarks/fetchapi/checkout", id: "watch-now", class: "bookmark-button" do %>
+        <%= link_to bookmarks_checkout_path(id: @random_result["id"], content: @content_format, result_title: @random_result_title), id: "watch-now", class: "bookmark-button" do %>
           <%= image_tag "watch.svg", alt: "Watch Now", class: "interaction-icon"%>
         <% end %>
 
