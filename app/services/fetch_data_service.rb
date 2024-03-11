@@ -11,6 +11,7 @@ class FetchDataService
     @genres_by_mood = genres_by_mood
     include_query_genres
     fetch_genres_excluding_moods
+    @monetization = "flatrate|free|ads|rent|buy"
   end
 
   def call
@@ -56,6 +57,7 @@ private
   def fetch_data_from_tmdb
     uri = URI(build_url)
     Net::HTTP.get(uri)
+    raise
   end
 
   def build_url
@@ -64,17 +66,19 @@ private
 
   def query_string
     params = {
-      include_adult: false,
-      include_video: false,
-      language: "en-US",
-      page: 1,
+      include_adult: true,
+      include_video: true,
+      locale: "DE",
+      region: "de",
+      language: "en-US|de-DE",
+      page: rand(50),
       sort_by: "popularity.desc",
       with_genres: @selected_genres,
       without_genres: @excluded_genres,
+      with_watch_monetization_types: @monetization,
       api_key: ENV['TMDB_API_KEY']
     }
     URI.encode_www_form(params)
-    raise
   end
 
   def parse_response(response)
