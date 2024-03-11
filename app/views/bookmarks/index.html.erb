@@ -1,9 +1,20 @@
 <div class="container">
 <div class="content-container">
 <div class="content-wrapper">
-<div class="poster-container">
-  <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
+<div class="poster-container" onclick="this.classList.toggle('flip')"> <!-- Rails helper for the SVG icon -->
+  <div class="front">
+    <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
+      <%= image_tag('info.svg', alt: "Profile Icon", class: "flip-icon") %>
+  </div>
+  <div class="back">
+    <p><%= @random_result['overview'] %></p>
+      <%= image_tag('reverse.svg', alt: "Profile Icon", class: "flip-icon") %>
+  </div>
 </div>
+
+
+
+
 
 <div id="content-title"> <%= @random_result_title %></div>
 <div id="released">
@@ -32,7 +43,7 @@
       <% end %>
     <% end %>
 
-        <%= link_to bookmarks_checkout_path(id: @random_result["id"], content: @content_format, result_title: @random_result_title), id: "watch-now", class: "bookmark-button" do %>
+        <%= link_to bookmarks_checkout_path(id: @random_result["id"], content: @content_format, result_title: @random_result_title, result_picture: @random_result["poster_path"]), id: "watch-now", class: "bookmark-button" do %>
           <%= image_tag "watch.svg", alt: "Watch Now", class: "interaction-icon"%>
         <% end %>
 

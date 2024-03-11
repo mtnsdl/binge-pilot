@@ -47,6 +47,7 @@ body {
   flex-direction: column;
   margin-left: 20px;;
   width: 100%; /* Take full width of its parent to align children properly */
+  align-items: center; /* Center-align the children */
 }
 
 .poster-container {

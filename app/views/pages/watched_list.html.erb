@@ -1,8 +1,17 @@
 <div class="container">
-  <div class="container">
-    <h1 class="headline">Watched list</h1>
+  <div class="headline-container">
+    <h1 class="headline">Here is what you watched!</h1>
+    <div class="cards-container">
+      <% @bookmarks_watched.each do |bookmark| %>
+        <div class="card">
+          <div class="card-img-container"> <!-- New container for image aspect ratio -->
+            <img src="https://image.tmdb.org/t/p/w500<%= bookmark.content.picture_url %>" alt="<%= bookmark.content.name %>" class="card-img">
+          </div>
+          <div class="card-content">
+            <h5 class="card-title"><%= bookmark.content.name %></h5>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-
-
 </div>
