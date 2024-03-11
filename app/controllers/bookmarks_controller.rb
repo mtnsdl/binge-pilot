@@ -51,7 +51,6 @@ class BookmarksController < ApplicationController
     @id = params[:id]
     @name = params[:name]
     @random_result_name_parse = @name.gsub(" ", "-").gsub("'", "-")
-    raise
   end
 
   private
