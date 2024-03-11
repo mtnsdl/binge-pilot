@@ -1,7 +1,7 @@
 <div class="container">
 <div class="content-container">
 <div class="content-wrapper">
-<div class="poster-container" id="swipeable-poster" onclick="this.classList.toggle('flip')">
+<div class="poster-container" data-controller="swipe" onclick="this.classList.toggle('flip')">
 
   <div class="front">
     <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
@@ -11,6 +11,9 @@
     <p><%= @random_result['overview'] %></p>
       <%= image_tag('reverse.svg', alt: "Profile Icon", class: "flip-icon") %>
   </div>
+
+      <button class="discard-action" style="display:none;">Discard</button>
+    <button class="save-action" style="display:none;">Save for Later</button>
 </div>
 
 <div id="content-title"> <%= @random_result_title %></div>
@@ -28,8 +31,8 @@
 </div>
 
 <div id="bookmark-buttons">
-      <%= form_with url: create_bookmark_path, method: :post do |form| %>
-      <%= hidden_field_tag :liked, false %>
+<%= form_with url: create_bookmark_path, method: :post, data: { like: 'false' } do |form| %>
+  <%= hidden_field_tag :liked, false %>
       <%= hidden_field_tag :result_id, @random_result["id"] %>
       <%= hidden_field_tag :result_title, @random_result_title %>
       <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
@@ -44,8 +47,8 @@
           <%= image_tag "watch.svg", alt: "Watch Now", class: "interaction-icon"%>
         <% end %>
 
-    <%= form_with url: create_bookmark_path, method: :post do |form| %>
-      <%= hidden_field_tag :liked, true %>
+<%= form_with url: create_bookmark_path, method: :post, data: { like: 'true' } do |form| %>
+  <%= hidden_field_tag :liked, true %>
       <%= hidden_field_tag :result_id, @random_result["id"] %>
       <%= hidden_field_tag :result_title, @random_result["original_title"] %>
       <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
