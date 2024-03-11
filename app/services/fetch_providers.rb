@@ -12,6 +12,7 @@ class FetchMovieProviderService
 
   def fetch_movie_urls
     url = "https://www.themoviedb.org/#{@content_format}/#{@random_result_id}-#{@random_result_name_parse}/watch?locale=DE"
+    puts url
     html = URI.open(url, "User-Agent" => USER_AGENT)
     doc = Nokogiri::HTML.parse(html)
 
