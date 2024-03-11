@@ -109,6 +109,10 @@ seed_genres(thrilling_mood, tv_show_genres.select { |g| [10759, 9648, 10765, 107
 
 # Bookmarks
 Bookmark.destroy_all
-Bookmark.create(user: alfonso, content: Content.first, status_like: "liked", status_watch: nil, offered: true, content_id: 60)
+Content.destroy_all
 
+shaw = Content.create!(name: "The Shawshank Redemption", picture_url: "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEs6jGyGtR9x6W6ZpK.jpg", type: nil, content_identifier: 278)
+Bookmark.create!(user: alfonso, status_like: "liked", status_watch: nil, offered: true, content_id: shaw.id)
+
+puts "#{Bookmark.count} bookmark created."
 puts "Seeding completed successfully! 🌱"
