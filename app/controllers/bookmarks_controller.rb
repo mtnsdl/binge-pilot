@@ -43,7 +43,7 @@ class BookmarksController < ApplicationController
   end
 
   def reject_offered_content(all_content_results)
-    offered_content_ids = current_user.bookmarks.where(offered: true).pluck(:content_id)
+    offered_content_ids = current_user.bookmarks&.where(offered: true).pluck(:content_id)
     all_content_results&.reject { |result| offered_content_ids.include?(result["id"].to_s) }
   end
 

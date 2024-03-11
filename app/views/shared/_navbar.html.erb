@@ -5,9 +5,16 @@
 <% end %>
 
 
-    <a href="<%= contentchoice_path %>">
-  <%= image_tag("logo.svg", alt: "logo", class: "navbar-logo overlapping-icon") %>
-</a>
+<% if user_signed_in? %>
+  <a href="<%= contentchoice_path %>">
+    <%= image_tag("logo.svg", alt: "logo", class: "navbar-logo overlapping-icon") %>
+  </a>
+<% else %>
+  <a href="<%= new_user_registration_path %>">
+    <%= image_tag("logo.svg", alt: "logo", class: "navbar-logo overlapping-icon") %>
+  </a>
+<% end %>
+
 
     <a href="<%= profile_path %>">
       <%= image_tag("profile.svg", alt: "Profile", class: "navbar-icon") %>

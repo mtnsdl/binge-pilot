@@ -39,8 +39,8 @@
 
 .overlapping-icon {
   position: absolute;
-  bottom: -15px; // Adjust this value to control the vertical overlap
-  height: 65px;
+  bottom: 8px; // Adjust this value to control the vertical overlap
+  height: 55px;
   left: 50%; // Positions the left edge of the icon at the center of its container
   transform: translateX(-50%); // Centers the icon based on its own width
   z-index: 1100;
@@ -72,7 +72,7 @@
   }
 
   .overlapping-icon {
-    height: 45px;
-    bottom: -10px; /* Adjust this value to control the overlap */
+    height: 35px;
+    bottom: 8px; /* Adjust this value to control the overlap */
   }
 }
