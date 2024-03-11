@@ -4,6 +4,17 @@
   margin-top: 30px;
 }
 
+.button-streaming {
+  width: 400px;
+  height: 50px;
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 10px;
+  box-shadow: none;
+  font-weight: bold;
+}
+
 .button-profile {
   width: 500px;
   height: 50px;
@@ -96,7 +107,7 @@
   color: white;
 }
 
-.button-profile:hover {
+.button-profile:hover, .button-streaming:hover {
   background-color: #843FC0;
   color: rgb(255, 255, 255);
 }
