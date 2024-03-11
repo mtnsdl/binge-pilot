@@ -28,32 +28,27 @@ class FetchDataService
   def fetch_genres_excluding_moods
     @mood = Mood.find_by('LOWER(name) = ?', @mood_name.downcase) if @mood_name.present?
 
-    excluded_genres_happy = ["thrilling", "dramatic"]
-    excluded_genres_dramatic = ["happy", "thrilling"]
-    excluded_genres_thrilling = ["happy", "dramatic"]
+    excluded_moods = case @mood&.name
+                    when "Happy"
+                      ["Thrilling", "Dramatic"]
+                    when "Thrilling"
+                      ["Happy", "Dramatic"]
+                    when "Dramatic"
+                      ["Happy", "Thrilling"]
+                    else
+                      []
+                    end
 
     if @mood
-      case @mood.name
-      when "Happy"
-        @excluded_genres = Genre.joins(:mood)
-                                .where(genre_format: @content_format)
-                                .where.not(moods: { name: excluded_genres_happy })
-                                .pluck(:genre_identifier).join(",")
-      when "Thrilling"
-        @excluded_genres = Genre.joins(:mood)
-                                .where(genre_format: @content_format)
-                                .where.not(moods: { name: excluded_genres_thrilling })
-                                .pluck(:genre_identifier).join(",")
-      when "Dramatic"
-        @excluded_genres = Genre.joins(:mood)
-                                .where(genre_format: @content_format)
-                                .where.not(moods: { name: excluded_genres_dramatic })
-                                .pluck(:genre_identifier).join(",")
-      end
+      @excluded_genres = Genre.joins(:mood)
+                              .where(genre_format: @content_format)
+                              .where(moods: { name: excluded_moods })
+                              .pluck(:genre_identifier).join("|")
     else
       @excluded_genres = ""
     end
   end
+
 
 
 private
@@ -75,10 +70,11 @@ private
       page: 1,
       sort_by: "popularity.desc",
       with_genres: @selected_genres,
- #     without_genres: @excluded_genres,
+      without_genres: @excluded_genres,
       api_key: ENV['TMDB_API_KEY']
     }
     URI.encode_www_form(params)
+    raise
   end
 
   def parse_response(response)
