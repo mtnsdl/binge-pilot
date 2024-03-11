@@ -1,19 +1,25 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h1 class="headline">Discarded list</h1>
-    </div>
-  </div>
-   <div class="row">
-    <% @bookmarks.each do |bookmark| %>
-      <div class="col-md-4 mb-4">
+  <div class="headline-container">
+    <h1 class="headline">Here is what you liked!</h1>
+    <div class="cards-container">
+      <% @bookmarks_disliked.each do |bookmark| %>
         <div class="card">
-          <img src="https://image.tmdb.org/t/p/w500<%= bookmark.content.picture_url %>" class="card-img-top" alt="<%= bookmark.content.name %>">
-          <div class="card-body">
+          <div class="card-img-container"> <!-- New container for image aspect ratio -->
+            <img src="https://image.tmdb.org/t/p/w500<%= bookmark.content.picture_url %>" alt="<%= bookmark.content.name %>" class="card-img">
+          </div>
+          <div class="card-content">
             <h5 class="card-title"><%= bookmark.content.name %></h5>
+            <div class="icon-container">
+              <%= link_to checkout_path(bookmark) do %>
+                <img src="<%= asset_path('watch.svg') %>" alt="Watch" class="cards-icon">
+              <% end %>
+              <%= link_to remove_from_list_path(bookmark), data: { "turbo-method": :delete} do %>
+                <img src="<%= asset_path('delete.svg') %>" alt="Delete" class="cards-icon">
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

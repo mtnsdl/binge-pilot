@@ -21,10 +21,28 @@ class PagesController < ApplicationController
   end
 
   def liked_list
-    @bookmarks = current_user.bookmarks.where(status_like: 'liked')
+    @bookmarks_liked = current_user.bookmarks.where(status_like: 'liked')
   end
 
   def discarded_list
-    @bookmarks = current_user.bookmarks.where(status_like: 'disliked')
+    @bookmarks_disliked = current_user.bookmarks.where(status_like: 'disliked')
+  end
+
+  def destroy
+    bookmark = Bookmark.find(params[:id])
+    name = bookmark.content.name
+    bookmark.destroy
+    if bookmark.status_like == 'liked'
+      redirect_to profile_liked_list_path, notice: "#{name} was removed from your list"
+    else
+      redirect_to profile_discarded_list_path, notice: "#{name} was removed from your list"
+    end
   end
 end
+
+
+
+# def destroy
+#   @cloud.destroy
+#   redirect_to clouds_path, notice: 'Cloud was successfully destroyed.'
+# end

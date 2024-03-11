@@ -2,7 +2,7 @@
   <div class="headline-container">
     <h1 class="headline">Here is what you liked!</h1>
     <div class="cards-container">
-      <% @bookmarks.each do |bookmark| %>
+      <% @bookmarks_liked.each do |bookmark| %>
         <div class="card">
           <div class="card-img-container"> <!-- New container for image aspect ratio -->
             <img src="https://image.tmdb.org/t/p/w500<%= bookmark.content.picture_url %>" alt="<%= bookmark.content.name %>" class="card-img">
@@ -10,8 +10,12 @@
           <div class="card-content">
             <h5 class="card-title"><%= bookmark.content.name %></h5>
             <div class="icon-container">
-              <img src="<%= asset_path('watch.svg') %>" alt="Watch" class="cards-icon">
-              <img src="<%= asset_path('delete.svg') %>" alt="Delete" class="cards-icon">
+              <%= link_to checkout_path(bookmark) do %>
+                <img src="<%= asset_path('watch.svg') %>" alt="Watch" class="cards-icon">
+              <% end %>
+              <%= link_to remove_from_list_path(bookmark), data: { "turbo-method": :delete} do %>
+                <img src="<%= asset_path('delete.svg') %>" alt="Delete" class="cards-icon">
+              <% end %>
             </div>
           </div>
         </div>
