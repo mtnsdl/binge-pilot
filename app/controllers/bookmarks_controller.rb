@@ -6,14 +6,14 @@ class BookmarksController < ApplicationController
   before_action :set_content_format_and_mood, only: :index
   before_action :fetch_genres_by_mood, only: :index
   before_action :trigger_fetch_service, only: :index
-#  before_action :fetch_streaming_links, only: :index
-#  @random_result_name_parse = @random_result["name"].gsub(" ", "-").gsub("'", "-")
+#  before_action :fetch_streaming_links, only: :checkout
+
 
 
   def index
     @random_result_title = @random_result["original_title"] || @random_result["original_name"]
-    @random_result_id = @random_result["id"]
-  end
+    @random_result_name = @random_result["title"] || @random_result["name"]
+ end
 
   def create_bookmark
     content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|
@@ -47,6 +47,10 @@ class BookmarksController < ApplicationController
   end
 
   def checkout
+    @content = params[:content]
+    @id = params[:id]
+    @name = params[:name]
+    @random_result_name_parse = @name.gsub(" ", "-").gsub("'", "-")
   end
 
   private
@@ -84,9 +88,9 @@ class BookmarksController < ApplicationController
     end
   end
 
-  # def fetch_streaming_links
-  #   fetched_providers = FetchMovieProviderService.new(@random_result_id, @content_format, @random_result_name_parse)
-  #   @all_streaming_providers = fetched_providers.fetch_movie_urls
-  # end
+  def fetch_streaming_links
+    fetched_providers = FetchMovieProviderService.new(@content, @id)
+    # @all_streaming_providers = fetched_providers.fetch_movie_urls
+  end
 
 end
