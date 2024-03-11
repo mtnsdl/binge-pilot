@@ -2,7 +2,9 @@
   <div class="headline-container">
     <h1 class="headline">Great choice!</h1>
   </div>
-  <div class="subline">Here you can stream ...</div>
+  <div class="subline">Here you can stream <%=params[:result_title]%></div>
+
+
 
   <div class="button-position">
     <%= button_to "Streaming1", "https://www.lewagon.com/de", method: :get, class: "button-streaming" %>
@@ -16,6 +18,17 @@
     <%= button_to "Streaming3", "https://www.lewagon.com/de", method: :get, class: "button-streaming" %>
   </div>
   <br>
-  <div class="subline">Enjoy your <%= @content_format %>  ! </div>
+
+  <div class="subline">
+    <% if params[:content] == 'movie' %>
+      <p>Enjoy your Movie !</p>
+    <% elsif params[:content] == 'tv' %>
+      <p>Enjoy your Show !</p>
+    <% else %>
+      <p>""</p>
+    <% end %>
+  </div>
+
+  <pre><%= params.inspect %></pre>
 
 </div>
