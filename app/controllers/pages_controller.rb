@@ -39,10 +39,3 @@ class PagesController < ApplicationController
     end
   end
 end
-
-
-
-# def destroy
-#   @cloud.destroy
-#   redirect_to clouds_path, notice: 'Cloud was successfully destroyed.'
-# end
