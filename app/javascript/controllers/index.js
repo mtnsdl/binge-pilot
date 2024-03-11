@@ -10,25 +10,25 @@ eagerLoadControllersFrom("controllers", application)
 // import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
 // lazyLoadControllersFrom("controllers", application)
 
-document.addEventListener('DOMContentLoaded', function() {
-  var container = document.querySelector('.poster-container');
+// document.addEventListener('DOMContentLoaded', function() {
+//   var container = document.querySelector('.poster-container');
 
-  function toggleFlip() {
-      container.classList.toggle('flip');
+//   function toggleFlip() {
+//       container.classList.toggle('flip');
 
-      var icon = document.querySelector('.flip-icon'); // Selects the flip icon within the container
+//       var icon = document.querySelector('.flip-icon'); // Selects the flip icon within the container
 
-      if (container.classList.contains('flip')) {
-          icon.src = icon.dataset.flipIconReverse;
-      } else {
-          icon.src = icon.dataset.flipIconInfo;
-      }
-  }
+//       if (container.classList.contains('flip')) {
+//           icon.src = icon.dataset.flipIconReverse;
+//       } else {
+//           icon.src = icon.dataset.flipIconInfo;
+//       }
+//   }
 
-  // Listening for both click and touchend events
-  container.addEventListener('click', toggleFlip);
-  container.addEventListener('touchend', function(e) {
-      e.preventDefault(); // Prevents the click event from firing after touchend
-      toggleFlip();
-  });
-});
+//   // Listening for both click and touchend events
+//   container.addEventListener('click', toggleFlip);
+//   container.addEventListener('touchend', function(e) {
+//       e.preventDefault(); // Prevents the click event from firing after touchend
+//       toggleFlip();
+//   });
+// });
