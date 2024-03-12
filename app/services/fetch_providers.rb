@@ -13,19 +13,37 @@ class FetchMovieProviderService
 
   def fetch_movie_urls
     url = "https://www.themoviedb.org/#{@content}/#{@id}-#{@random_result_name_parse}/watch?locale=DE"
-    puts url
     html = URI.open(url, "User-Agent" => USER_AGENT, "Accept-Language" => "en-US,en;q=0.9")
     doc = Nokogiri::HTML.parse(html)
 
-    stream_text = doc.search('h3').find { |node| node.text.strip == "Stream" }.try(:text).try(:strip)
-    rent_text = doc.search('h3').find { |node| node.text.strip == "Rent" }.try(:text).try(:strip)
-    buy_text = doc.search('h3').find { |node| node.text.strip == "Buy" }.try(:text).try(:strip)
-    ads_text = doc.search('h3').find { |node| node.text.strip == "Ads" }.try(:text).try(:strip)
+    streaming_options = {}
 
+    ['Stream', 'Rent', 'Buy', 'Ads'].each do |option_type|
+      option_section = doc.search("h3").find { |node| node.text.strip == option_type }
+      next unless option_section
 
-    # stream_links = doc.search('.ott_filter_best_price ott_filter_hd a').map { |link| link['href'].strip }
-    # image_links = doc.search('.ott_filter_best_price ott_filter_hd img').map { |img| img['src'].strip }
+      links_container = option_section.xpath('./following-sibling::div').first
+      next unless links_container
 
-    { stream_text: stream_text, rent_text: rent_text, buy_text: buy_text, ads_text: ads_text }
+      links_with_titles_icons_and_prices = links_container.search(".ott_filter_best_price.ott_filter_hd a, .ott_filter_hd a").map do |a|
+        icon = a.xpath('./img').first['src'].strip if a.xpath('./img').first
+        price_info = a.xpath('./following-sibling::span').first
+        price = price_info&.search('.price')&.text&.strip
+
+        {
+          link: a['href'].strip,
+          title: a['title'].strip,
+          icon: icon,
+          price: price,
+        }
+      end.select { |link_info| link_info[:link].start_with?("https://click.justwatch.com/") }
+
+      streaming_options[option_type.downcase.to_sym] = links_with_titles_icons_and_prices
+    end
+
+    streaming_options
   end
+
+
+
 end

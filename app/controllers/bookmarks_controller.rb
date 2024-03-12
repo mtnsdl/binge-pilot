@@ -6,8 +6,6 @@ class BookmarksController < ApplicationController
   before_action :set_content_format_and_mood, only: :index
   before_action :fetch_genres_by_mood, only: :index
   before_action :trigger_fetch_service, only: :index
-#  before_action :fetch_streaming_links, only: :checkout
-
 
 
   def index
@@ -67,6 +65,10 @@ class BookmarksController < ApplicationController
     @id = params[:id] || bookmark.content.content_identifier
     @name = params[:name] || params[:result_title]
     @random_result_name_parse = @name.gsub(" ", "-").gsub("'", "-")
+
+    fetched_providers = FetchMovieProviderService.new(@content, @id, @name, @random_result_name_parse)
+    @all_streaming_providers = fetched_providers.fetch_movie_urls
+    raise
   end
 
   private
