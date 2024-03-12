@@ -90,7 +90,7 @@ class BookmarksController < ApplicationController
 
   def fetch_streaming_links
     fetched_providers = FetchMovieProviderService.new(@content, @id, @name, @random_result_name_parse)
-    # @all_streaming_providers = fetched_providers.fetch_movie_urls
+    @all_streaming_providers = fetched_providers.fetch_movie_urls
   end
 
 end
