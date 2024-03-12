@@ -13,10 +13,23 @@ class FetchDataService
     @monetization = "flatrate|free|ads|rent|buy"
   end
 
-  def call
-    puts "Fetching data..."
-    response = fetch_data_from_tmdb
-    parse_response(response)
+  def call(max_retries: 3)
+    attempts = 0
+    begin
+      puts "Fetching data... Attempt #{attempts + 1}"
+      response = fetch_data_from_tmdb
+      random_result = parse_response(response)
+
+      # Check if the result meets your criteria (this example checks if it's non-empty)
+      return random_result unless random_result.empty?
+
+      attempts += 1
+      sleep(1) # Optional: sleep 1 second between retries to reduce load on the API server
+    end while attempts < max_retries
+
+    # If all retries exhausted and still no useful data, return an empty result or handle accordingly
+    puts "All retries exhausted."
+    []
   end
 
   def include_query_genres
@@ -89,7 +102,7 @@ class FetchDataService
       'language' => "en-US",
       'page' => rand(50),
       'sort_by' => "vote_average.desc",
-      'vote_count.gte' => 100,
+      'vote_count.gte' => 20,
       'vote_average.gte' => 6,
       'with_genres' => @selected_genres,
       'without_genres' => "16,14",
@@ -116,5 +129,4 @@ class FetchDataService
       []
     end
   end
-
 end
