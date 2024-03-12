@@ -85,6 +85,17 @@ private
 
   def parse_response(response)
     data = JSON.parse(response)
-    data["results"] unless data.nil? || data["results"].nil?
+    if data && data["results"]
+      data["results"].select do |result|
+        # This regex attempts to match titles that are more likely to contain primarily Latin characters,
+        # including those with diacritics. It's more permissive and aims to include titles in languages
+        # like French, Spanish, or German, which use Latin script with additional accents.
+        result['title'] =~ /\A[\p{Latin}\p{Mark}\p{Punctuation}\p{Number}\s]+\z/
+      end
+    else
+      []
+    end
   end
+
+
 end
