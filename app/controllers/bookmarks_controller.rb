@@ -28,7 +28,7 @@ class BookmarksController < ApplicationController
       status_like: params[:liked] == 'true' ? 'liked' : 'disliked',
       status_watch: params[:watched] == 'true' ? 'watched' : 'not_watched'
     )
-
+    p params
     redirect_to bookmarks_path(mood: params[:mood], content: params[:content]), notice: "Bookmark was created 🎉"
   end
 
