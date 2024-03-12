@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-  margin-top: 60px; /* This should be equal to or greater than the navbar's height */
+  margin-top: 47px; /* This should be equal to or greater than the navbar's height */
   width: 80%; /* Adjust width to manage container size */
   max-width: 1200px; /* Set a max-width to control the maximum size */
   padding: 20px;
@@ -104,4 +104,3 @@ body {
     height: auto; /* Ensure the height adjusts based on the width to maintain aspect ratio */
   }
 }
-

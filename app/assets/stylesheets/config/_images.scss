@@ -9,10 +9,20 @@
 }
 
 /* Ensuring the icon styling does not conflict */
-.icon, .interaction-icon {
-  width: 60%; /* Adjust based on parent container size or screen width */
+.icon {
+  width: 45%; /* Adjust based on parent container size or screen width */
   height: auto; /* Maintains aspect ratio */
   padding: 1em; /* Makes padding responsive */
+}
+
+.interaction-icon {
+  cursor: pointer;
+  width: 50%; /* Increase the width as needed */
+  height: auto; /* Maintain the aspect ratio */
+  /* Optionally, you can add some margin if they seem too close to each other or to the text */
+  margin: 10 5px; /* Adjust the margin as needed */
+  padding-top: 5px;
+
 }
 
 .cards-icon {
@@ -26,6 +36,10 @@
 
 @media (max-width: 768px) {
   .interaction-icon {
-    width: 90%; /* Adjust for smaller screens */
+    width: 60%; /* Adjust for smaller screens */
+  }
+
+  .icon {
+    width: 60%;
   }
 }

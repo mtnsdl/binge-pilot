@@ -24,7 +24,7 @@
   .back p {
     color: #2F2C86;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 0.8em;
     margin-left: 10%;
     margin-right: 10%;
   }
@@ -33,7 +33,7 @@
     position: absolute;
     bottom: 20px; /* Adjust based on desired distance from the top */
     right: 20px; /* Adjust based on desired distance from the right */
-    width: 50px !important; /* Adjust based on your icon's size */
+    width: 30px !important; /* Adjust based on your icon's size */
     height: auto; /* Maintain aspect ratio */
     z-index: 1; /* This ensures the icon is above other positioned elements in .poster-container */
     /* Further style your icon as needed */
