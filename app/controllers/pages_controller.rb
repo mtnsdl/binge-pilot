@@ -35,10 +35,13 @@ class PagesController < ApplicationController
     bookmark = Bookmark.find(params[:id])
     name = bookmark.content.name
     bookmark.destroy
-    if bookmark.status_like == 'liked'
-      redirect_to profile_liked_list_path, notice: "#{name} was removed from your list"
+
+    if request.referer&.end_with?(profile_liked_list_path)
+      redirect_to profile_liked_list_path
+    elsif request.referer&.end_with?(profile_watched_list_path)
+      redirect_to profile_watched_list_path
     else
-      redirect_to profile_discarded_list_path, notice: "#{name} was removed from your list"
+      redirect_to profile_discarded_list_path
     end
   end
 end
