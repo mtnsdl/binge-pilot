@@ -48,6 +48,16 @@ class BookmarksController < ApplicationController
     end
   end
 
+  def change_status_watch
+    bookmark = Bookmark.find(params[:id])
+    bookmark.status_like = "disliked"
+    bookmark.status_watch = "not_watched"
+    bookmark.save
+
+    redirect_to profile_watched_list_path
+  end
+
+
   def create_watched_bookmark
     content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|
       c.name = params[:result_title]
