@@ -6,11 +6,16 @@ export default class extends Controller {
   connect() {
     const buttons = this.element.querySelectorAll('.button-streaming');
     buttons.forEach(button => {
-      button.addEventListener('click', () => {
+      const disableButton = () => {
         button.disabled = true;
-      });
+      };
+      // Handle click events
+      button.addEventListener('click', disableButton);
+      // Handle touchstart events
+      button.addEventListener('touchstart', disableButton);
     });
   }
+
 
   createBookmarkAndRedirect(event){
     event.preventDefault()
