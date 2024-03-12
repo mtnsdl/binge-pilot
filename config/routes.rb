@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   get "/bookmarks/fetchapi", to:"bookmarks#trigger_fetch_service"
   get "/bookmarks/fetchstreaming", to:"bookmarks#fetch_streaming_links"
   get "/bookmarks/:id/checkout", to: "bookmarks#checkout", as: :bookmarks_checkout
-  get "/bookmarks/:id/checkout", to: "bookmarks#fetch_streaming_links"
-
 
   get "/profile", to: "pages#profile"
   get "/profile/liked_list", to: "pages#liked_list"

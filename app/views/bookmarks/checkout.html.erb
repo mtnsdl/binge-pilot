@@ -2,42 +2,29 @@
   <div class="headline-container">
     <h1 class="headline">Great choice!</h1>
   </div>
-  <div class="subline">Here you can stream <br><%=params[:result_title]%></div>
+  <div class="subline">Here you can watch <br><%= params[:result_title] %></div>
 
-
-
-
-  <div class="button-position"  data-action="click->bookmark#createBookmarkAndRedirect">
-    <button>Netflix</button>
-  </div>
-
-  <div class="button-position" data-controller="bookmark">
-    <%= button_to "Streaming2", "https://www.lewagon.com/de", method: :get, class: "button-streaming", id: "button-streaming-2" %>
-  </div>
-
-  <div class="button-position" data-controller="bookmark">
-    <%= button_to "Streaming3", "https://www.lewagon.com/de", method: :get, class: "button-streaming", id: "button-streaming-3" %>
-
-  </div>
-  <br>
-
-  <input type="hidden" name="content[name]" value="<%= params[:result_title] %>" data-bookmark-target="name">
-  <input type="hidden" name="content[picture]" value="<%= params[:result_picture] %>" data-bookmark-target="picture">
-  <input type="hidden" name="user[id]" value="<%= current_user.id %>" data-bookmark-target="user">
-  <input type="hidden" name="content[id]" value="<%= params[:id] %>" data-bookmark-target="id">
-
+<% @all_streaming_providers.each do |option_type, providers| %>
+  <% if providers.present? %>
+    <h3><%= option_type.capitalize %></h3>
+    <% providers.each do |provider| %>
+      <%= link_to provider[:link], target: "_blank", rel: "noopener", class: "button-streaming", data: { action: "click->bookmark#createBookmarkAndRedirect" } do %>
+        <%= image_tag provider[:icon], alt: "#{provider[:title].split(" on ").last}", width: "50", height: "50" %>
+        <%= provider[:title].split(" on ").last %>
+        <% if provider[:price].present? %>
+          <span>(<%= provider[:price] %> - <%= provider[:presentation_type] %>)</span>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
 
 
   <div class="subline">
     <% if params[:content] == 'movie' %>
-      <p>Enjoy your Movie !</p>
+      <p>Enjoy your Movie!</p>
     <% elsif params[:content] == 'tv' %>
-      <p>Enjoy your Show !</p>
-    <% else %>
-      <p>""</p>
+      <p>Enjoy your Show!</p>
     <% end %>
   </div>
-
-  <pre><%= params.inspect %></pre>
-
 </div>
