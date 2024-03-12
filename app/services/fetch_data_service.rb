@@ -9,93 +9,112 @@ class FetchDataService
   def initialize(content_format, mood_name, genres_by_mood = nil)
     @content_format = content_format
     @mood_name = mood_name
-    # Removed genres_by_mood from direct usage, as we'll hardcode a sample set for demonstration
     include_query_genres
-    fetch_genres_excluding_moods
     @monetization = "flatrate|free|ads|rent|buy"
   end
 
   def call
     puts "Fetching data..."
     response = fetch_data_from_tmdb
-    random_result = parse_response(response)
-    random_result
+    parse_response(response)
   end
 
   def include_query_genres
-    # Define subsets for each mood
-    happy_genres = [35, 10751, 10402] # Comedy, Family, Music
-    dramatic_genres = [18, 36, 10752] # Drama, History, War
-    thrilling_genres = [28, 12, 53] # Action, Adventure, Thriller
+    # Movie Genres
+    happy_movie_genres = [35, 10751] # Comedy, Family
+    dramatic_movie_genres = [18, 36] # Drama, History
+    thrilling_movie_genres = [28, 53] # Action, Thriller
 
-    # Combine all genres for the random selection
-    all_genres = happy_genres + dramatic_genres + thrilling_genres
+    # TV Show Genres
+    happy_tv_genres = [35, 10751, 10762] # Comedy, Family, Kids
+    dramatic_tv_genres = [18, 80] # Drama, Crime
+    thrilling_tv_genres = [10759, 9648, 10765] # Action & Adventure, Mystery, Sci-Fi & Fantasy
 
-    # Select genres based on the mood
-    case @mood_name.downcase
-    when "happy"
-      @selected_genres = happy_genres.sample(3).join("|")
-    when "dramatic"
-      @selected_genres = dramatic_genres.sample(3).join("|")
-    when "thrilling"
-      @selected_genres = thrilling_genres.sample(3).join("|")
-    else
-      # If no specific mood is provided or recognized, select a random sample from all genres
-      @selected_genres = all_genres.sample(3).join("|")
+    selected_genres = []
+
+    if @content_format == 'movie'
+      selected_genres = case @mood_name.downcase
+                        when "happy"
+                          happy_movie_genres
+                        when "dramatic"
+                          dramatic_movie_genres
+                        when "thrilling"
+                          thrilling_movie_genres
+                        else
+                          happy_movie_genres + dramatic_movie_genres + thrilling_movie_genres
+                        end
+    elsif @content_format == 'tv'
+      selected_genres = case @mood_name.downcase
+                        when "happy"
+                          happy_tv_genres
+                        when "dramatic"
+                          dramatic_tv_genres
+                        when "thrilling"
+                          thrilling_tv_genres
+                        else
+                          happy_tv_genres + dramatic_tv_genres + thrilling_tv_genres
+                        end
     end
+
+    @selected_genres = selected_genres.sample(3).join("|")
   end
 
-  def fetch_genres_excluding_moods
-    # This method's implementation will depend on how you plan to use it.
-    # For simplicity, this example will not modify it.
-    # Implement your logic here if you plan to exclude certain genres based on moods.
-    @excluded_genres = "" # Placeholder
-  end
-
-private
+  private
 
   def fetch_data_from_tmdb
     uri = URI(build_url)
-    Net::HTTP.get(uri)
+    response = Net::HTTP.get_response(uri)
+    if response.is_a?(Net::HTTPSuccess)
+      response.body
+    else
+      puts "Error fetching data: #{response.code} #{response.message}"
+      nil
+    end
   end
 
   def build_url
-    "#{TMDB_BASE_URL}/#{@content_format}?#{query_string}"
+    base_url = @content_format == 'movie' ? "#{TMDB_BASE_URL}/movie" : "#{TMDB_BASE_URL}/tv"
+    "#{base_url}?#{query_string}"
   end
 
   def query_string
-    ten_years_ago = Date.today.prev_year(10).strftime('%Y-%m-%d')
+    years_ago = Date.today.prev_year(10).strftime('%Y-%m-%d')
+    date_param = @content_format == 'movie' ? 'primary_release_date.gte' : 'first_air_date.gte'
 
     params = {
       'include_adult' => false,
       'include_video' => true,
       'locale' => "DE",
       'region' => "de",
-      'language' => "de-DE",
+      'language' => "en-US",
       'page' => rand(50),
-      'sort_by' => "popularity.desc",
+      'sort_by' => "vote_average.desc",
+      'vote_count.gte' => 100,
+      'vote_average.gte' => 6,
       'with_genres' => @selected_genres,
-      'without_genres' => @excluded_genres,
+      'without_genres' => "16,14",
       'with_watch_monetization_types' => @monetization,
-      'primary_release_date.gte' => ten_years_ago,
+      date_param => years_ago,
+      'with_original_language' => "en",
       'api_key' => ENV['TMDB_API_KEY']
     }
     URI.encode_www_form(params)
   end
 
   def parse_response(response)
-    data = JSON.parse(response)
-    if data && data["results"]
-      data["results"].select do |result|
-        # This regex attempts to match titles that are more likely to contain primarily Latin characters,
-        # including those with diacritics. It's more permissive and aims to include titles in languages
-        # like French, Spanish, or German, which use Latin script with additional accents.
-        result['title'] =~ /\A[\p{Latin}\p{Mark}\p{Punctuation}\p{Number}\s]+\z/
+    begin
+      data = JSON.parse(response)
+      results = data&.fetch("results", [])
+      filtered_results = results.select do |result|
+        # Check for the presence of 'original_title' (movies) or 'original_name' (TV shows) and use regex as needed
+        title = result['original_title'] || result['original_name']
+        title =~ /\A[\p{Latin}\p{Mark}\p{Punctuation}\p{Number}\s]+\z/
       end
-    else
+      return filtered_results
+    rescue JSON::ParserError
+      puts "Failed to parse JSON response."
       []
     end
   end
-
 
 end
