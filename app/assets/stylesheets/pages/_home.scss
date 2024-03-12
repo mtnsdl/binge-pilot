@@ -99,8 +99,9 @@ body {
 /* Media query for desktop screens larger than 768px */
 @media (min-width: 768px) {
   .poster-container {
-    width: 40vw; /* Adjust the width for desktop screens to prevent it from being too large */
-    max-width: 600px; /* Set a max-width to limit its size on very large screens */
+    width: 22vw; /* Reduce the width for desktop screens */
+    max-width: 500px; /* Lower the max-width to limit its size on very large screens */
     height: auto; /* Ensure the height adjusts based on the width to maintain aspect ratio */
   }
 }
+
