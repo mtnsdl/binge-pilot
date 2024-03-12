@@ -20,6 +20,11 @@
 <% end %>
 
 
+  <input type="hidden" name="content[name]" value="<%= params[:result_title] %>" data-bookmark-target="name">
+  <input type="hidden" name="content[picture]" value="<%= params[:result_picture] %>" data-bookmark-target="picture">
+  <input type="hidden" name="user[id]" value="<%= current_user.id %>" data-bookmark-target="user">
+  <input type="hidden" name="content[id]" value="<%= params[:id] %>" data-bookmark-target="id">
+
   <div class="subline">
     <% if params[:content] == 'movie' %>
       <p>Enjoy your Movie!</p>
