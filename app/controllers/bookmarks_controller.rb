@@ -86,9 +86,9 @@ end
     @content = params[:content] || bookmark.content.medium
     @id = params[:id] || bookmark.content.content_identifier
     @name = params[:name] || params[:result_title]
-    @random_result_name_parse = @name.gsub(" ", "-").gsub("'", "-")
+    @random_result_name_parse = @name.gsub(" ", "-").gsub("'", "-").gsub(":", "")
 
-    fetched_providers = FetchMovieProviderService.new(@content, @id, @name, @random_result_name_parse)
+    fetched_providers = FetchProviders.new(@content, @id, @name, @random_result_name_parse)
     @all_streaming_providers = fetched_providers.fetch_movie_urls
   end
 
@@ -128,7 +128,7 @@ end
   end
 
   def fetch_streaming_links
-    fetched_providers = FetchMovieProviderService.new(@content, @id, @name, @random_result_name_parse)
+    fetched_providers = FetchProviders.new(@content, @id, @name, @random_result_name_parse)
     @all_streaming_providers = fetched_providers.fetch_movie_urls
   end
 
