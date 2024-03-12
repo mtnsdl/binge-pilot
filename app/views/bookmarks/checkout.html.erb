@@ -8,7 +8,7 @@
   <% if providers.present? %>
     <h3><%= option_type.capitalize %></h3>
     <% providers.each do |provider| %>
-      <%= link_to provider[:link], target: "_blank", rel: "noopener", class: "button-streaming", data: { action: "click->bookmark#createBookmarkAndRedirect" } do %>
+<%= link_to provider[:link], target: "_blank", rel: "noopener", class: "button-streaming", data: { action: "click->bookmark#createBookmarkAndRedirect" } do %>
         <%= image_tag provider[:icon], alt: "#{provider[:title].split(" on ").last}", width: "50", height: "50" %>
         <%= provider[:title].split(" on ").last %>
         <% if provider[:price].present? %>

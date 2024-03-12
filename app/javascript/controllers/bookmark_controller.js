@@ -6,13 +6,14 @@ export default class extends Controller {
   connect() {
     const buttons = this.element.querySelectorAll('.button-streaming');
     buttons.forEach(button => {
+      // Ensuring compatibility with iOS by setting an empty onclick attribute
+      button.setAttribute('onclick', '');
+
       button.addEventListener('pointerdown', () => {
         button.disabled = true;
       });
     });
   }
-
-
 
   createBookmarkAndRedirect(event){
     event.preventDefault()
