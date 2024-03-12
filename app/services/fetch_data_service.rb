@@ -23,27 +23,32 @@ class FetchDataService
   end
 
   def include_query_genres
-    # Define subsets for each mood
-    happy_genres = [35, 10751, 10402] # Comedy, Family, Music
-    dramatic_genres = [18, 36, 10752] # Drama, History, War
-    thrilling_genres = [28, 12, 53] # Action, Adventure, Thriller
+    # Define subsets for each mood with refined genre selections
+    happy_genres = [35, 10751] # Comedy, Family
+    dramatic_genres = [18, 36] # Drama, History
+    thrilling_genres = [28, 53] # Action, Thriller
 
-    # Combine all genres for the random selection
-    all_genres = happy_genres + dramatic_genres + thrilling_genres
+    # Assuming 'mood' is a parameter that can be passed to this method or set before it's called
+    selected_genres = case @mood_name.downcase
+                      when "happy"
+                        happy_genres
+                      when "dramatic"
+                        dramatic_genres
+                      when "thrilling"
+                        thrilling_genres
+                      else
+                        happy_genres + dramatic_genres + thrilling_genres
+                      end
 
-    # Select genres based on the mood
-    case @mood_name.downcase
-    when "happy"
-      @selected_genres = happy_genres.sample(3).join("|")
-    when "dramatic"
-      @selected_genres = dramatic_genres.sample(3).join("|")
-    when "thrilling"
-      @selected_genres = thrilling_genres.sample(3).join("|")
-    else
-      # If no specific mood is provided or recognized, select a random sample from all genres
-      @selected_genres = all_genres.sample(3).join("|")
-    end
-  end
+    # If there's feedback indicating certain genres consistently underperform or are less popular, exclude them dynamically
+    # Example: Excluding 'Music' from happy genres if it's not resonating
+    # This could be extended to use data for dynamic exclusions
+
+    # Combine genres for the case of no specific mood, or if you want to give users a 'surprise me' option.
+    # Randomize the selection if you want varied results each time the method is called
+    @selected_genres = selected_genres.sample(3).join("|") # Randomly picks 3 genres from the selected list
+end
+
 
   def fetch_genres_excluding_moods
     # This method's implementation will depend on how you plan to use it.
@@ -64,20 +69,23 @@ private
   end
 
   def query_string
-    ten_years_ago = Date.today.prev_year(10).strftime('%Y-%m-%d')
+    years_ago = Date.today.prev_year(10).strftime('%Y-%m-%d')
 
     params = {
       'include_adult' => false,
       'include_video' => true,
       'locale' => "DE",
       'region' => "de",
-      'language' => "de-DE",
+      'language' => "en-US", # API response language in English
       'page' => rand(50),
-      'sort_by' => "popularity.desc",
+      'sort_by' => "vote_average.desc",
+      'vote_count.gte' => 100, # Ensures statistical significance
+      'vote_average.gte' => 6,
       'with_genres' => @selected_genres,
-      'without_genres' => @excluded_genres,
+      'without_genres' => "16,14", # Excludes Animation and Fantasy genres
       'with_watch_monetization_types' => @monetization,
-      'primary_release_date.gte' => ten_years_ago,
+      'primary_release_date.gte' => years_ago,
+      'with_original_language' => "en", # Only movies originally in English
       'api_key' => ENV['TMDB_API_KEY']
     }
     URI.encode_www_form(params)
