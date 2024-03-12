@@ -68,7 +68,6 @@ class BookmarksController < ApplicationController
 
     fetched_providers = FetchMovieProviderService.new(@content, @id, @name, @random_result_name_parse)
     @all_streaming_providers = fetched_providers.fetch_movie_urls
-    raise
   end
 
   private
