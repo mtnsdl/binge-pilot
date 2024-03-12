@@ -7,10 +7,15 @@
     <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
       <%= image_tag('info.svg', alt: "Profile Icon", class: "flip-icon") %>
   </div>
-  <div class="back">
+<div class="back">
+  <% if @random_result['overview'].nil? || @random_result['overview'].empty? %>
+    <p>No further information available</p>
+  <% else %>
     <p><%= @random_result['overview'] %></p>
-      <%= image_tag('reverse.svg', alt: "Profile Icon", class: "flip-icon") %>
-  </div>
+  <% end %>
+  <%= image_tag('reverse.svg', alt: "Profile Icon", class: "flip-icon") %>
+</div>
+
 
       <button class="discard-action" style="display:none;">Discard</button>
     <button class="save-action" style="display:none;">Save for Later</button>
