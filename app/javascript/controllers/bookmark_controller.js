@@ -10,7 +10,7 @@ export default class extends Controller {
         button.disabled = true;
       };
       // Handle click events
-      button.addEventListener('click', disableButton);
+      // button.addEventListener('click', disableButton);
       // Handle touchstart events
       button.addEventListener('touchstart', disableButton);
     });
