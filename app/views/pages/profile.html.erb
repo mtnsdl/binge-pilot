@@ -19,11 +19,11 @@
   </div>
 
   <div class="button-position">
-    <%= button_to "What have you watched", profile_watched_list_path(@user), method: :get, class: "button-profile" %>
+    <%= button_to "What have you watched", profile_watched_list_path, method: :get, class: "button-profile" %>
   </div>
 
   <div class="button-position">
-    <div><%= button_to "What you did not like", profile_discarded_list_path(@user), method: :get, class: "button-profile" %></div>
+    <div><%= button_to "What you did not like", profile_discarded_list_path, method: :get, class: "button-profile" %></div>
   </div>
 
     <div class="button-position">
