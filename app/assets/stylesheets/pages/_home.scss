@@ -52,7 +52,7 @@ body {
 .poster-container {
   display: flex;
   max-width: 100%; /* Ensures it does not overflow the screen width */
-  width: 50vw; /* Responsive width based on viewport width */
+  width: 30vw;
   height: auto; /* Adjust height automatically based on the aspect ratio of the content */
   aspect-ratio: 3 / 4; /* Maintain aspect ratio */
   flex-direction: column;
@@ -60,7 +60,7 @@ body {
   justify-content: center;
   border-radius: 20px;
   border-style: solid;
-  border-width: 10px;
+  border-width: 5px;
   border-color: #BCC03F;
   overflow: hidden;
 }
@@ -90,7 +90,7 @@ body {
   }
 
   .poster-container {
-    width: 80vw; /* Adjust width for smaller screens */
+    width: 75vw !important; /* Adjust width for smaller screens */
     height: auto; /* Maintain aspect ratio */
   }
 
