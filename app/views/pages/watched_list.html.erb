@@ -9,6 +9,16 @@
           </div>
           <div class="card-content">
             <h5 class="card-title"><%= bookmark.content.name %></h5>
+            <div class="icon-container">
+
+              <%= link_to change_status_watch_path(bookmark) do %>
+                <img src="<%= asset_path('dislike.svg') %>" alt="Watch" class="cards-icon">
+              <% end %>
+
+              <%= link_to remove_from_list_path(bookmark), data: { "turbo-method": :delete} do %>
+                <img src="<%= asset_path('delete.svg') %>" alt="Delete" class="cards-icon">
+              <% end %>
+            </div>
           </div>
         </div>
       <% end %>

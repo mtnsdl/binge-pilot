@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   get "/profile/discarded_list", to: "pages#discarded_list"
   get "/profile/watched_list", to: "pages#watched_list"
 
-  get "/bookmarks/:id/change_status_like", to: "bookmarks#change_status_like", as: :change_status
+  get "/bookmarks/:id/change_status_like", to: "bookmarks#change_status_like", as: :change_status_like
+  get "/bookmarks/:id/change_status_watch", to: "bookmarks#change_status_watch", as: :change_status_watch
 
 
   post 'bookmarks/create', to: 'bookmarks#create_bookmark', as: :create_bookmark
