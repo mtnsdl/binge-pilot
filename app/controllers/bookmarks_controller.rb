@@ -11,33 +11,21 @@ class BookmarksController < ApplicationController
 
 
 def index
-  # Fetch the content type and mood from query parameters
-  content_type = params[:content] # 'movie' or 'tv'
-  mood = params[:mood] # e.g., 'thrilling'
+  # Example API call, adjust based on your actual implementation
+  service = FetchDataService.new(params[:content], params[:mood])
+  response = service.call
 
-  # Call your FetchDataService with the content_type and mood
-  service = FetchDataService.new(content_type, mood)
-  results = service.call
-
-  # Make sure results are present and select the first result
-  @random_result = results.is_a?(Array) && results.first ? results.first : {}
-
-  # Now safely check if @random_result has the key
-  if @random_result.has_key?("original_title") || @random_result.has_key?("title")
-    @random_result_title = @random_result["original_title"] || @random_result["title"]
-    @random_result_name = "Movie"
-  elsif @random_result.has_key?("original_name") || @random_result.has_key?("name")
-    @random_result_title = @random_result["original_name"] || @random_result["name"]
-    @random_result_name = "TV Show"
+  if response.present? && response.any?
+    @random_result = response.first
+    # Assuming @random_result is a hash with expected keys; adjust as needed
+    @random_result_title = @random_result["original_title"] || @random_result["original_name"] || "Title not available"
+    @random_result_name = @random_result["title"] || @random_result["name"] || "Name not available"
+    @random_result_id = @random_result["id"] # Make sure this exists for routing to work
+    # Extract other required data similarly
   else
-    # Fallback if neither key is present
-    @random_result_title = "Title not available"
-    @random_result_name = "Content type not available"
+    redirect_to fallback_path, alert: "Data not available for the selected content and mood." and return
   end
 end
-
-
-
 
   def create_bookmark
     content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|
