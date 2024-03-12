@@ -13,6 +13,11 @@
               <%= link_to bookmarks_checkout_path(id: bookmark.id, content: bookmark.content.medium, result_title: bookmark.content.name) do %>
                 <img src="<%= asset_path('watch.svg') %>" alt="Watch" class="cards-icon">
               <% end %>
+
+              <%= link_to change_status_path(bookmark) do %>
+                <img src="<%= asset_path('dislike.svg') %>" alt="Watch" class="cards-icon">
+              <% end %>
+
               <%= link_to remove_from_list_path(bookmark), data: { "turbo-method": :delete} do %>
                 <img src="<%= asset_path('delete.svg') %>" alt="Delete" class="cards-icon">
               <% end %>
