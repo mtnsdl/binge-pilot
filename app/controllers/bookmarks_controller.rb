@@ -32,6 +32,22 @@ class BookmarksController < ApplicationController
     redirect_to bookmarks_path(mood: params[:mood], content: params[:content]), notice: "Bookmark was created 🎉"
   end
 
+  def change_status_like
+    bookmark = Bookmark.find(params[:id])
+    if bookmark.status_like == "liked"
+      bookmark.status_like = "disliked"
+    else
+      bookmark.status_like = "liked"
+    end
+    bookmark.save
+
+    if request.referer&.end_with?(profile_liked_list_path)
+      redirect_to profile_liked_list_path
+    else
+      redirect_to profile_discarded_list_path
+    end
+  end
+
   def create_watched_bookmark
     content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|
       c.name = params[:result_title]

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
+
   get "/contentchoice", to: "pages#contentchoice", as: :contentchoice
   get "/moods", to: "pages#moods", as: :moods
   get "/bookmarks", to: "bookmarks#index", as: :bookmarks
@@ -15,6 +16,9 @@ Rails.application.routes.draw do
   get "/profile/liked_list", to: "pages#liked_list"
   get "/profile/discarded_list", to: "pages#discarded_list"
   get "/profile/watched_list", to: "pages#watched_list"
+
+  get "/bookmarks/:id/change_status_like", to: "bookmarks#change_status_like", as: :change_status
+
 
   post 'bookmarks/create', to: 'bookmarks#create_bookmark', as: :create_bookmark
   post 'bookmarks/create_watched_bookmark', to: 'bookmarks#create_watched_bookmark', as: :create_watched_bookmark
