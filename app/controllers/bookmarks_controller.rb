@@ -10,10 +10,34 @@ class BookmarksController < ApplicationController
 
 
 
-  def index
-    @random_result_title = @random_result["original_title"] || @random_result["original_name"]
-    @random_result_name = @random_result["title"] || @random_result["name"]
- end
+def index
+  # Fetch the content type and mood from query parameters
+  content_type = params[:content] # 'movie' or 'tv'
+  mood = params[:mood] # e.g., 'thrilling'
+
+  # Call your FetchDataService with the content_type and mood
+  service = FetchDataService.new(content_type, mood)
+  results = service.call
+
+  # Make sure results are present and select the first result
+  @random_result = results.is_a?(Array) && results.first ? results.first : {}
+
+  # Now safely check if @random_result has the key
+  if @random_result.has_key?("original_title") || @random_result.has_key?("title")
+    @random_result_title = @random_result["original_title"] || @random_result["title"]
+    @random_result_name = "Movie"
+  elsif @random_result.has_key?("original_name") || @random_result.has_key?("name")
+    @random_result_title = @random_result["original_name"] || @random_result["name"]
+    @random_result_name = "TV Show"
+  else
+    # Fallback if neither key is present
+    @random_result_title = "Title not available"
+    @random_result_name = "Content type not available"
+  end
+end
+
+
+
 
   def create_bookmark
     content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|

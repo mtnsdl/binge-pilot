@@ -17,14 +17,15 @@
 </div>
 <div id="released">
   Released in
-  <% if params[:content] == 'movie' && @random_result["release_date"].slice(0, 4) %>
-    <%= @random_result["release_date"].slice(0, 4) %>
-  <% elsif params[:content] == 'tv' && @random_result["first_air_date"].slice(0, 4) %>
-    <%= @random_result["first_air_date"].slice(0, 4) %>
+  <% if params[:content] == 'movie' %>
+    <%= @random_result["release_date"]&.slice(0, 4) || "Unknown" %>
+  <% elsif params[:content] == 'tv' %>
+    <%= @random_result["first_air_date"]&.slice(0, 4) || "Unknown" %>
   <% else %>
     Unknown
   <% end %>
 </div>
+
 <div id="content-title"> <%= @random_result_title %></div>
 
 </div>
