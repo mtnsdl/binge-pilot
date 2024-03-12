@@ -47,10 +47,11 @@ class BookmarksController < ApplicationController
   end
 
   def checkout
-    @content = params[:content]
-    @id = params[:id]
-    @name = params[:name]
+    @content = params[:content] || bookmark.content.medium
+    @id = params[:id] || bookmark.content.content_identifier
+    @name = params[:name] || params[:result_title]
     @random_result_name_parse = @name.gsub(" ", "-").gsub("'", "-")
+    raise
   end
 
   private
