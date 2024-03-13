@@ -56,7 +56,7 @@
 <%= form_with url: create_bookmark_path, method: :post, data: { like: 'true' } do |form| %>
   <%= hidden_field_tag :liked, true %>
       <%= hidden_field_tag :result_id, @random_result["id"] %>
-      <%= hidden_field_tag :result_title, @random_result["original_title"] %>
+      <%= hidden_field_tag :result_title, @random_result_title %>
       <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
       <%= hidden_field_tag :mood, @mood_name %>
       <%= hidden_field_tag :content, @content_format %>
