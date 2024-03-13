@@ -4,9 +4,17 @@
 <div class="container" data-controller="bookmark">
   <div class="content-container">
     <% if @all_streaming_providers.values.flatten.empty? %>
-      <h1 class="headline"><%= fallback_message %> </h1>
-                  <%= image_tag("error.svg", alt: "error", class: "no-provider-error") %>
-      <%= image_tag("like.svg", alt: "No options available", class: "no-provider-icon") %>
+      <h1 class="headline"><%= fallback_message %></h1>
+      <%= image_tag("error.svg", alt: "error", class: "no-provider-error") %>
+      <%# Save Content to Watch later when streaming is available %>
+        <%= form_with url: create_bookmark_save_for_later_path(
+          id: params[:id],
+          result_title: params[:result_title],
+          result_picture: params[:result_picture]), method: :post, data: { like: 'true' } do |form| %>
+          <%= button_tag(type: 'submit', id: "save-for-later", class: "bookmark-button") do %>
+            <%= image_tag "like.svg", alt: "Save for Later", class: "interaction-icon" %>
+          <% end %>
+        <% end %>
 
     <% else %>
       <h1 class="headline"><%= checkout_messages.sample %></h1>
