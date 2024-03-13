@@ -12,7 +12,7 @@
           result_title: params[:result_title],
           result_picture: params[:result_picture]), method: :post, data: { like: 'true' } do |form| %>
           <%= button_tag(type: 'submit', id: "save-for-later", class: "bookmark-button") do %>
-            <%= image_tag "like.svg", alt: "Save for Later", class: "interaction-icon" %>
+            <%= image_tag "like.svg", alt: "Save for Later", class: "no-provider-icon" %>
           <% end %>
         <% end %>
 
