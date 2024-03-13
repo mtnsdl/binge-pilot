@@ -1,35 +1,49 @@
-<div class="container" data-controller="bookmark">
-  <div class="headline-container">
-    <h1 class="headline">Great choice!</h1>
-  </div>
-  <div class="subline">Here you can watch <br><%= params[:result_title] %></div>
+<% checkout_messages = ["Great choice!", "You're going to love this!", "Excellent selection!", "A perfect pick!", "Fantastic choice!"] %>
+<% fallback_message = "Unfortunately, there are no streaming options in your region yet, but you can save it for later." %>
 
-<% @all_streaming_providers.each do |option_type, providers| %>
-  <% if providers.present? %>
-    <h3><%= option_type.capitalize %></h3>
-    <% providers.each do |provider| %>
-<%= link_to provider[:link], target: "_blank", rel: "noopener", class: "button-streaming", data: { action: "click->bookmark#createBookmarkAndRedirect" } do %>
-        <%= image_tag provider[:icon], alt: "#{provider[:title].split(" on ").last}", width: "50", height: "50" %>
-        <%= provider[:title].split(" on ").last %>
-        <% if provider[:price].present? %>
-          <span>(<%= provider[:price] %> - <%= provider[:presentation_type] %>)</span>
-        <% end %>
+<div class="container" data-controller="bookmark">
+  <div class="content-container">
+    <% if @all_streaming_providers.values.flatten.empty? %>
+      <h1 class="headline"><%= fallback_message %></h1>
+      <%= image_tag("like.svg", alt: "No options available", class: "no-provider-icon") %>
+    <% else %>
+      <h1 class="headline"><%= checkout_messages.sample %></h1>
+      <div class="checkout-subline">Here you can watch <br><%= params[:result_title] %></div>
+      <div class="provider-note">Please visit the page of your chosen provider to verify pricing details.</div>
+    <% end %>
+  </div>
+
+  <% unless @all_streaming_providers.values.flatten.empty? %>
+    <% @all_streaming_providers.each do |option_type, providers| %>
+      <% if providers.present? %>
+        <div class="provider-category">
+          <h3 class="provider-subline"><%= option_type.to_s.capitalize %> it here:</h3>
+          <% providers.each do |provider| %>
+            <% unless provider[:title].downcase.include?("netflix basic with ads".downcase) %>
+              <div class="provider-card">
+                <%= link_to provider[:link], target: "_blank", rel: "noopener", class: "checkout-button-streaming", data: { action: "click->bookmark#createBookmarkAndRedirect" } do %>
+                  <%= image_tag provider[:icon], alt: "#{provider[:title].split(' on ').last}", class: "provider-icon" %>
+                  <div class="provider-name"><%= provider[:title].split(' on ').last %></div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
     <% end %>
-  <% end %>
-<% end %>
 
+    <!-- Display Enjoy your Movie/Show message based on content type -->
+    <div class="checkout-subline">
+      <% if params[:content] == 'movie' %>
+        <p>Enjoy your Movie!</p>
+      <% elsif params[:content] == 'tv' %>
+        <p>Enjoy your Show!</p>
+      <% end %>
+    </div>
+  <% end %>
 
   <input type="hidden" name="content[name]" value="<%= params[:result_title] %>" data-bookmark-target="name">
   <input type="hidden" name="content[picture]" value="<%= params[:result_picture] %>" data-bookmark-target="picture">
   <input type="hidden" name="user[id]" value="<%= current_user.id %>" data-bookmark-target="user">
   <input type="hidden" name="content[id]" value="<%= params[:id] %>" data-bookmark-target="id">
-
-  <div class="subline">
-    <% if params[:content] == 'movie' %>
-      <p>Enjoy your Movie!</p>
-    <% elsif params[:content] == 'tv' %>
-      <p>Enjoy your Show!</p>
-    <% end %>
-  </div>
 </div>
