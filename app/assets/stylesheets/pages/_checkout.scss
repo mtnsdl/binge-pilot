@@ -1,0 +1,112 @@
+.provider-category {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #2F2C86;
+  border-radius: 20px;
+  width: 60%;
+  margin-bottom: 20px;
+  padding-bottom: 40px;
+  padding-top: 20px;
+}
+
+.provider-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* Establishing positioning context */
+  margin: 15px;
+  /* Ensure there's enough space at the bottom for the absolutely positioned name */
+  padding-bottom: 10px;
+}
+
+
+.provider-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px; /* Adjust or remove as needed, since we're using absolute positioning for the name */
+  border-radius: 10px;
+}
+
+
+.provider-name {
+  position: absolute;
+  bottom: 0; /* Positions at the bottom of the provider-card */
+  left: 50%;
+  transform: translateX(-50%); /* Centers the name horizontally */
+  font-size: 0.7em;
+  color: #f8f9fa;
+  text-align: center;
+  width: max-content; /* Ensure the name doesn't overflow the card */
+}
+
+.checkout-subline {
+  padding-top: 20px;
+  font-family: $headers-font;
+  font-weight: $headers-font-weight;
+  font-size: 2.0em;
+  color: white;
+  text-decoration: none;
+  text-align: center ;
+}
+
+.provider-subline {
+  font-family: $headers-font;
+  font-weight: 700;
+  font-size: 1.2em;
+  color: white;
+  text-decoration: none;
+  text-align: center ;
+  width: 100%; /* Ensure it spans the full width of the container */
+  text-align: center; /* Center the text */
+  margin-bottom: 10px; /* Provide some space between the subline and the cards */
+  padding-top: 10px;
+}
+
+/* You might already have styles similar to these, adjust as needed */
+.checkout-button-streaming {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+  text-decoration: none;
+  color: white; /* Ensure legibility */
+}
+
+.provider-note {
+  font-size: 0.7em;
+  color: #f8f9fa; /* Adjust color to fit your design */
+  text-align: center;
+  margin-top: 20px; /* Space from the last provider card */
+  margin-bottom: 20px;
+}
+
+.no-provider-icon {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 5px; /* Space between icon and title */
+
+}
+
+.provider-container-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+
+  .checkout-subline {
+    font-size: 1.5em;
+  }
+  .provider-category {
+    width: 90%; /* Adjust the width on smaller screens */
+    justify-content: center; /* Ensure centering on small screens */
+  }
+  .provider-note {
+    width: 70%; /* Ensure the note spans the full width of the container */
+  }
+}
