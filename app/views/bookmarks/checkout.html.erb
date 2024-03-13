@@ -4,8 +4,10 @@
 <div class="container" data-controller="bookmark">
   <div class="content-container">
     <% if @all_streaming_providers.values.flatten.empty? %>
-      <h1 class="headline"><%= fallback_message %></h1>
+      <h1 class="headline"><%= fallback_message %> </h1>
+                  <%= image_tag("error.svg", alt: "error", class: "no-provider-error") %>
       <%= image_tag("like.svg", alt: "No options available", class: "no-provider-icon") %>
+
     <% else %>
       <h1 class="headline"><%= checkout_messages.sample %></h1>
       <div class="checkout-subline">Discover the<br>viewing options for <br><%= params[:result_title] %></div>
