@@ -115,18 +115,12 @@ class FetchDataService
   end
 
   def parse_response(response)
-    begin
-      data = JSON.parse(response)
-      results = data&.fetch("results", [])
-      filtered_results = results.select do |result|
-        # Check for the presence of 'original_title' (movies) or 'original_name' (TV shows) and use regex as needed
-        title = result['original_title'] || result['original_name']
-        title =~ /\A[\p{Latin}\p{Mark}\p{Punctuation}\p{Number}\s]+\z/
-      end
-      return filtered_results
-    rescue JSON::ParserError
-      puts "Failed to parse JSON response."
-      []
+    data = JSON.parse(response)
+    results = data&.fetch("results", [])
+    filtered_results = results.select do |result|
+      title = (result['original_title'] || result['original_name']).to_s
+      title =~ /\A[\p{Latin}\p{Mark}\p{Punctuation}\p{Number}\s]+\z/
     end
+    filtered_results
   end
 end
