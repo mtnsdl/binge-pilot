@@ -7,33 +7,38 @@
   border-radius: 20px;
   width: 60%;
   margin-bottom: 20px;
-  padding: 20px;
+  padding-bottom: 40px;
+  padding-top: 20px;
 }
 
 .provider-card {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
+  position: relative; /* Establishing positioning context */
+  margin: 15px;
+  /* Ensure there's enough space at the bottom for the absolutely positioned name */
+  padding-bottom: 10px;
 }
+
 
 .provider-icon {
   width: 50px;
   height: 50px;
-  margin-bottom: 5px; /* Space between icon and title */
+  margin-bottom: 5px; /* Adjust or remove as needed, since we're using absolute positioning for the name */
   border-radius: 10px;
 }
 
-.provider-price {
-  font-size: 0.5em;
-  color: #f8f9fa;
-  text-align: center;
-}
 
 .provider-name {
+  position: absolute;
+  bottom: 0; /* Positions at the bottom of the provider-card */
+  left: 50%;
+  transform: translateX(-50%); /* Centers the name horizontally */
   font-size: 0.7em;
   color: #f8f9fa;
   text-align: center;
+  width: max-content; /* Ensure the name doesn't overflow the card */
 }
 
 .checkout-subline {
@@ -86,6 +91,12 @@
 
 }
 
+.provider-container-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
 @media (max-width: 768px) {
 

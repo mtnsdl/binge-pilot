@@ -8,7 +8,7 @@
       <%= image_tag("like.svg", alt: "No options available", class: "no-provider-icon") %>
     <% else %>
       <h1 class="headline"><%= checkout_messages.sample %></h1>
-      <div class="checkout-subline">Here you can watch <br><%= params[:result_title] %></div>
+      <div class="checkout-subline">Discover the viewing options for <br><%= params[:result_title] %></div>
       <div class="provider-note">Please visit the page of your chosen provider to verify pricing details.</div>
     <% end %>
   </div>
@@ -17,13 +17,14 @@
     <% @all_streaming_providers.each do |option_type, providers| %>
       <% if providers.present? %>
         <div class="provider-category">
-          <h3 class="provider-subline"><%= option_type.to_s.capitalize %> it here:</h3>
+          <h3 class="provider-subline">You can <%= option_type.to_s.downcase %> it here:</h3>
           <% providers.each do |provider| %>
             <% unless provider[:title].downcase.include?("netflix basic with ads".downcase) %>
               <div class="provider-card">
                 <%= link_to provider[:link], target: "_blank", rel: "noopener", class: "checkout-button-streaming", data: { action: "click->bookmark#createBookmarkAndRedirect" } do %>
-                  <%= image_tag provider[:icon], alt: "#{provider[:title].split(' on ').last}", class: "provider-icon" %>
+                <div class="provider-container-name">  <%= image_tag provider[:icon], alt: "#{provider[:title].split(' on ').last}", class: "provider-icon" %>
                   <div class="provider-name"><%= provider[:title].split(' on ').last %></div>
+                  </div>
                 <% end %>
               </div>
             <% end %>
