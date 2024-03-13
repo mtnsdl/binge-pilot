@@ -14,11 +14,9 @@ def index
 
   if response.present? && response.any?
     @random_result = response.first
-    # Assuming @random_result is a hash with expected keys; adjust as needed
     @random_result_title = @random_result["original_title"] || @random_result["original_name"] || "Title not available"
     @random_result_name = @random_result["title"] || @random_result["name"] || "Name not available"
-    @random_result_id = @random_result["id"] # Make sure this exists for routing to work
-    # Extract other required data similarly
+    @random_result_id = @random_result["id"]
   else
     redirect_to fallback_path, alert: "Data not available for the selected content and mood." and return
   end
@@ -95,6 +93,22 @@ end
     @all_streaming_providers = fetched_providers.fetch_movie_urls
   end
 
+  def save_when_no_provider
+    content = Content.find_or_create_by(content_identifier: params[:id].to_i) do |c|
+      c.name = params[:result_title]
+      c.picture_url = params[:result_picture]
+    end
+
+    Bookmark.create(
+      content: content,
+      user: current_user,
+      offered: true,
+      status_like: 'liked',
+      status_watch: 'not_watched'
+    )
+    redirect_to bookmarks_path(mood: params[:mood], content: params[:content]), notice: "Bookmark was created 🎉"
+  end
+
   private
 
   def set_content_format_and_mood
@@ -103,7 +117,6 @@ end
   end
 
   def check_if_bookmark_is_in_db
-    # if content exists then do not save
     content_id = params[:result_id].to_i
 
     existing_bookmark = current_user.bookmarks.find_by(content_id: content_id)

@@ -1,69 +1,65 @@
 <div class="container">
-<div class="content-container">
-<div class="content-wrapper">
-<div class="poster-container" data-controller="swipe" onclick="this.classList.toggle('flip')">
+  <div class="content-container">
+    <div class="content-wrapper">
+      <div class="poster-container" data-controller="swipe" onclick="this.classList.toggle('flip')">
+        <div class="front">
+          <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
+            <%= image_tag('info.svg', alt: "Profile Icon", class: "flip-icon") %>
+        </div>
 
-  <div class="front">
-    <img src="https://image.tmdb.org/t/p/w500<%= @random_result['poster_path'] %>" alt="<%= @random_result['title'] %> poster">
-      <%= image_tag('info.svg', alt: "Profile Icon", class: "flip-icon") %>
-  </div>
-<div class="back">
-  <% if @random_result['overview'].nil? || @random_result['overview'].empty? %>
-    <p>No further information available</p>
-  <% else %>
-    <p><%= @random_result['overview'] %></p>
-  <% end %>
-  <%= image_tag('reverse.svg', alt: "Profile Icon", class: "flip-icon") %>
-</div>
+        <div class="back">
+          <% if @random_result['overview'].nil? || @random_result['overview'].empty? %>
+            <p>No further information available</p>
+          <% else %>
+            <p><%= @random_result['overview'] %></p>
+          <% end %>
+          <%= image_tag('reverse.svg', alt: "Profile Icon", class: "flip-icon") %>
+        </div>
 
-
-      <button class="discard-action" style="display:none;">Discard</button>
-    <button class="save-action" style="display:none;">Save for Later</button>
-</div>
-<div id="released">
-  Released in
-  <% if params[:content] == 'movie' %>
-    <%= @random_result["release_date"]&.slice(0, 4) || "Unknown" %>
-  <% elsif params[:content] == 'tv' %>
-    <%= @random_result["first_air_date"]&.slice(0, 4) || "Unknown" %>
-  <% else %>
-    Unknown
-  <% end %>
-</div>
-
-<div id="content-title"> <%= @random_result_title %></div>
-
-</div>
-</div>
-
-<div id="bookmark-buttons">
-<%= form_with url: create_bookmark_path, method: :post, data: { like: 'false' } do |form| %>
-  <%= hidden_field_tag :liked, false %>
-      <%= hidden_field_tag :result_id, @random_result["id"] %>
-      <%= hidden_field_tag :result_title, @random_result_title %>
-      <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
-      <%= hidden_field_tag :mood, @mood_name %>
-      <%= hidden_field_tag :content, @content_format %>
-      <%= button_tag(type: 'submit', id: "discard", class: "bookmark-button") do %>
-        <%= image_tag "dislike.svg", alt: "Discard", class: "interaction-icon" %>
-      <% end %>
-    <% end %>
-
-        <%= link_to bookmarks_checkout_path(id: @random_result["id"], content: @content_format, result_title: @random_result_title, result_picture: @random_result["poster_path"], name: @random_result_name), id: "watch-now", class: "bookmark-button" do %>
-          <%= image_tag "watch.svg", alt: "Watch Now", class: "interaction-icon"%>
+        <button class="discard-action" style="display:none;">Discard</button>
+        <button class="save-action" style="display:none;">Save for Later</button>
+      </div>
+      <div id="released">
+        Released in
+        <% if params[:content] == 'movie' %>
+          <%= @random_result["release_date"]&.slice(0, 4) || "Unknown" %>
+        <% elsif params[:content] == 'tv' %>
+          <%= @random_result["first_air_date"]&.slice(0, 4) || "Unknown" %>
+        <% else %>
+          Unknown
         <% end %>
+      </div>
+      <div id="content-title"> <%= @random_result_title %></div>
+    </div>
+  </div>
 
-<%= form_with url: create_bookmark_path, method: :post, data: { like: 'true' } do |form| %>
-  <%= hidden_field_tag :liked, true %>
-      <%= hidden_field_tag :result_id, @random_result["id"] %>
-      <%= hidden_field_tag :result_title, @random_result["original_title"] %>
-      <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
-      <%= hidden_field_tag :mood, @mood_name %>
-      <%= hidden_field_tag :content, @content_format %>
-      <%= button_tag(type: 'submit', id: "save-for-later", class: "bookmark-button") do %>
-        <%= image_tag "like.svg", alt: "Save for Later", class: "interaction-icon" %>
+    <div id="bookmark-buttons">
+      <%= form_with url: create_bookmark_path, method: :post, data: { like: 'false' } do |form| %>
+        <%= hidden_field_tag :liked, false %>
+        <%= hidden_field_tag :result_id, @random_result["id"] %>
+        <%= hidden_field_tag :result_title, @random_result_title %>
+        <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
+        <%= hidden_field_tag :mood, @mood_name %>
+        <%= hidden_field_tag :content, @content_format %>
+          <%= button_tag(type: 'submit', id: "discard", class: "bookmark-button") do %>
+            <%= image_tag "dislike.svg", alt: "Discard", class: "interaction-icon" %>
+          <% end %>
       <% end %>
-    <% end %>
 
+      <%= link_to bookmarks_checkout_path(id: @random_result["id"], content: @content_format, result_title: @random_result_title, result_picture: @random_result["poster_path"], name: @random_result_name), id: "watch-now", class: "bookmark-button" do %>
+        <%= image_tag "watch.svg", alt: "Watch Now", class: "interaction-icon"%>
+      <% end %>
+
+      <%= form_with url: create_bookmark_path, method: :post, data: { like: 'true' } do |form| %>
+        <%= hidden_field_tag :liked, true %>
+        <%= hidden_field_tag :result_id, @random_result["id"] %>
+        <%= hidden_field_tag :result_title, @random_result["original_title"] %>
+        <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
+        <%= hidden_field_tag :mood, @mood_name %>
+        <%= hidden_field_tag :content, @content_format %>
+          <%= button_tag(type: 'submit', id: "save-for-later", class: "bookmark-button") do %>
+            <%= image_tag "like.svg", alt: "Save for Later", class: "interaction-icon" %>
+          <% end %>
+      <% end %>
     </div>
 </div>

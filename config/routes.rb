@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   post 'bookmarks/create', to: 'bookmarks#create_bookmark', as: :create_bookmark
   post 'bookmarks/create_watched_bookmark', to: 'bookmarks#create_watched_bookmark', as: :create_watched_bookmark
+  post 'bookmarks/create_bookmark_save_for_later', to: 'bookmarks#save_when_no_provider', as: :create_bookmark_save_for_later
 
   delete '/liked_list/:id', to: 'pages#destroy', as: 'remove_from_list'
   get '/bookmarks/:id/checkout', to: 'pages#checkout', as: 'go_to_checkout'
