@@ -20,15 +20,22 @@ class PagesController < ApplicationController
   end
 
   def liked_list
-    @bookmarks_liked = current_user.bookmarks.where(status_like: 'liked')
+    all_bookmarks_liked = current_user.bookmarks.where(status_like: 'liked')
+    bookmarks_liked_unique = all_bookmarks_liked.uniq { |bookmark| bookmark.content.id }
+    bookmarks = bookmarks_liked_unique.reject { |bookmark| bookmark.status_watch == 'watched' }
+    @bookmarks_liked = bookmarks
   end
 
   def discarded_list
-    @bookmarks_disliked = current_user.bookmarks.where(status_like: 'disliked')
+    # @bookmarks_disliked = current_user.bookmarks.where(status_like: 'disliked')
+    all_bookmarks_disliked = current_user.bookmarks.where(status_like: 'disliked')
+    bookmarks_disliked_unique = all_bookmarks_disliked.uniq { |bookmark| bookmark.content.id }
+    bookmarks = bookmarks_disliked_unique.reject { |bookmark| bookmark.status_watch == 'watched' }
+    @bookmarks_disliked = bookmarks
   end
 
   def watched_list
-    @bookmarks_watched = current_user.bookmarks.where(status_watch: 'true')
+    @bookmarks_watched = current_user.bookmarks.where(status_watch: 'watched')
   end
 
   def destroy

@@ -111,7 +111,7 @@ seed_genres(thrilling_mood, tv_show_genres.select { |g| [10759, 9648, 10765, 107
 Bookmark.destroy_all
 Content.destroy_all
 
-shaw = Content.create!(name: "The Shawshank Redemption", picture_url: "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEs6jGyGtR9x6W6ZpK.jpg", type: nil, content_identifier: 278)
+shaw = Content.create!(name: "The Shawshank Redemption", picture_url: "https://i.ebayimg.com/images/g/XxMAAOSw~zFg4aCs/s-l1600.jpg", type: nil, content_identifier: 278)
 Bookmark.create!(user: alfonso, status_like: "liked", status_watch: nil, offered: true, content_id: shaw.id)
 
 puts "#{Bookmark.count} bookmark created."

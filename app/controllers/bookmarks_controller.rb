@@ -7,7 +7,6 @@ class BookmarksController < ApplicationController
   before_action :fetch_genres_by_mood, only: :index
   before_action :trigger_fetch_service, only: :index
 
-
 def index
   # Example API call, adjust based on your actual implementation
   service = FetchDataService.new(params[:content], params[:mood])
@@ -26,11 +25,14 @@ def index
 end
 
   def create_bookmark
+    return unless check_if_bookmark_is_in_db
+
     content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|
       c.name = params[:result_title]
       c.picture_url = params[:result_picture]
       c.medium = params[:content]
     end
+
     Bookmark.create(
       content:,
       user: current_user,
@@ -67,18 +69,19 @@ end
     redirect_to profile_watched_list_path
   end
 
-
   def create_watched_bookmark
+    return unless check_if_bookmark_is_in_db
+
     content = Content.find_or_create_by(content_identifier: params[:result_id].to_i) do |c|
       c.name = params[:result_title]
       c.picture_url = params[:result_picture]
     end
 
     Bookmark.create!(
-      content:,
+      content: content,
       user_id: params[:user].to_i,
       offered: true,
-      status_watch: 'true'
+      status_watch: 'watched'
     )
   end
 
@@ -99,19 +102,38 @@ end
     @mood_name = params[:mood]&.downcase
   end
 
+  def check_if_bookmark_is_in_db
+    # if content exists then do not save
+    content_id = params[:result_id].to_i
+
+    existing_bookmark = current_user.bookmarks.find_by(content_id: content_id)
+    if existing_bookmark.present?
+      false
+    end
+    true
+  end
+
   def trigger_fetch_service
     fetched_instance = FetchDataService.new(@content_format, @mood_name, @genres_by_mood)
     @all_content_results = fetched_instance.call
     @new_offers = reject_offered_content(@all_content_results)
     @random_result = @new_offers&.sample
-      puts "@all_content_results: #{@all_content_results}"
-      puts "@new_offers: #{@new_offers}"
-      puts "@random_result: #{@random_result}"
   end
 
   def reject_offered_content(all_content_results)
-    offered_content_ids = current_user.bookmarks&.where(offered: true).pluck(:content_id)
-    all_content_results&.reject { |result| offered_content_ids.include?(result["id"].to_s) }
+    offered_content_identifiers = []
+
+    current_user.bookmarks.where(offered: true).each do |offered_bookmark|
+      offered_content_identifiers << offered_bookmark.content.content_identifier
+    end
+
+    all_content_results.map! { |result| result["id"] }
+    # Right now we are only checking for doublicated IDs
+    # TODO Check also for douplicated titles, etc. for better result
+    unique_content_result_ids = all_content_results.uniq
+    unique_offered_content_identifiers = offered_content_identifiers.uniq
+
+    unique_content_result_ids&.reject { |result| unique_offered_content_identifiers.include?(result) }
   end
 
   def fetch_genres_by_mood
@@ -131,5 +153,4 @@ end
     fetched_providers = FetchProviders.new(@content, @id, @name, @random_result_name_parse)
     @all_streaming_providers = fetched_providers.fetch_movie_urls
   end
-
 end
