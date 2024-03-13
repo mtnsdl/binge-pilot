@@ -12,7 +12,7 @@ $headers-font-weight: 700;
 .headline {
   font-family: $headers-font;
   font-weight: $headers-font-weight;
-  font-size: 3.0em;
+  font-size: 2.8em;
 }
 
 .subline {
@@ -41,7 +41,7 @@ $headers-font-weight: 700;
 }
 
 .card-title {
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 600;
   margin: 0; /* Adjust as needed, assuming you want to remove the bottom margin */
   flex-grow: 1; /* Allows the title to take up the available space */
@@ -100,7 +100,7 @@ a {
 }
 
 .card-title {
-  font-size: 2.0em;
+  font-size: 1.0em;
 }
 
 .profile-subline {

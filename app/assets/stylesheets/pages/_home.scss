@@ -17,6 +17,15 @@ body {
   align-items: center; /* Center children (like .content-wrapper) horizontally */
 }
 
+.container-cards {
+  margin-top: 47px; /* This should be equal to or greater than the navbar's height */
+  width: 80%; /* Adjust width to manage container size */
+  max-width: 1200px; /* Set a max-width to control the maximum size */
+  padding: 20px;
+  display: flex; /* Enables flexbox properties for centering */
+  flex-direction: column; /* Stack children vertically */
+}
+
 .headline-container h1 {
   text-align: center;
   padding: calc(10px + 2vw); /* Responsive padding */
