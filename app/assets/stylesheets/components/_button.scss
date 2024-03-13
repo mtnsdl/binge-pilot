@@ -13,7 +13,8 @@
   border-radius: 10px;
   box-shadow: none;
   font-weight: bold;
-}
+  cursor: pointer; /* Make the mouse cursor change to a pointer to indicate it's clickable */
+  }
 
 .button-profile {
   width: 500px;
