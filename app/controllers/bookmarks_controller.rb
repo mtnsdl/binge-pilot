@@ -86,6 +86,7 @@ end
   end
 
   def checkout
+    bookmark = Bookmark.find(params[:id])
     @content = params[:content] || bookmark.content.medium
     @id = params[:id] || bookmark.content.content_identifier
     @name = params[:name] || params[:result_title]
