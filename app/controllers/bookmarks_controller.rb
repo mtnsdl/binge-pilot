@@ -118,9 +118,6 @@ end
     @all_content_results = fetched_instance.call
     @new_offers = reject_offered_content(@all_content_results)
     @random_result = @new_offers&.sample
-    # puts "👻👻👻👻@all_content_results: #{@all_content_results}"
-    # puts "👻👻👻👻@new_offers: #{@new_offers}"
-    # puts "👻👻👻👻@random_result: #{@random_result}"
   end
 
   def reject_offered_content(all_content_results)
