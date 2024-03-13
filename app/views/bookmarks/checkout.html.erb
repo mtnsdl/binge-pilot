@@ -5,6 +5,7 @@
   <div class="content-container">
     <% if @all_streaming_providers.values.flatten.empty? %>
       <h1 class="headline"><%= fallback_message %></h1>
+      <%= image_tag("error.svg", alt: "error", class: "no-provider-error") %>
       <%# Save Content to Watch later when streaming is available %>
         <%= form_with url: create_bookmark_save_for_later_path(
           id: params[:id],
@@ -14,6 +15,7 @@
             <%= image_tag "like.svg", alt: "Save for Later", class: "interaction-icon" %>
           <% end %>
         <% end %>
+
     <% else %>
       <h1 class="headline"><%= checkout_messages.sample %></h1>
       <div class="checkout-subline">Discover the<br>viewing options for <br><%= params[:result_title] %></div>
@@ -21,35 +23,40 @@
     <% end %>
   </div>
 
-  <% unless @all_streaming_providers.values.flatten.empty? %>
-    <% @all_streaming_providers.each do |option_type, providers| %>
-      <% if providers.present? %>
-        <div class="provider-category">
-          <h3 class="provider-subline">You can <%= option_type.to_s.downcase %> it here:</h3>
-          <% providers.each do |provider| %>
-            <% unless provider[:title].downcase.include?("netflix basic with ads".downcase) %>
-              <div class="provider-card">
-                <%= link_to provider[:link], target: "_blank", rel: "noopener", class: "checkout-button-streaming", data: { action: "click->bookmark#createBookmarkAndRedirect" } do %>
-                <div class="provider-container-name">  <%= image_tag provider[:icon], alt: "#{provider[:title].split(' on ').last}", class: "provider-icon" %>
-                  <div class="provider-name"><%= provider[:title].split(' on ').last %></div>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
+<% unless @all_streaming_providers.values.flatten.empty? %>
+  <% @all_streaming_providers.each do |option_type, providers| %>
+    <% if providers.present? %>
+      <div class="provider-category">
+        <%# Custom message for 'ads' option type %>
+        <% message = option_type.to_s.downcase == 'ads' ? "You can watch it with Ads here:" : "You can #{option_type.to_s.downcase} it here:" %>
+        <h3 class="provider-subline"><%= message %></h3>
 
-    <!-- Display Enjoy your Movie/Show message based on content type -->
-    <div class="checkout-subline">
-      <% if params[:content] == 'movie' %>
-        <p>Enjoy your Movie!</p>
-      <% elsif params[:content] == 'tv' %>
-        <p>Enjoy your Show!</p>
-      <% end %>
-    </div>
+        <% providers.each do |provider| %>
+          <% unless provider[:title].downcase.include?("netflix basic with ads".downcase) %>
+            <div class="provider-card">
+              <%= link_to provider[:link], target: "_blank", rel: "noopener", class: "checkout-button-streaming", data: { action: "click->bookmark#createBookmarkAndRedirect" } do %>
+                <div class="provider-container-name">
+                  <%= image_tag provider[:icon], alt: "#{provider[:title].split(' on ').last}", class: "provider-icon" %>
+                  <div class="provider-name"><%= provider[:title].split(' on ').last %></div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
+
+  <!-- Conditional message to enjoy the movie or show -->
+  <div class="checkout-subline">
+    <% if params[:content] == 'movie' %>
+      <p>Enjoy your Movie!</p>
+    <% elsif params[:content] == 'tv' %>
+      <p>Enjoy your Show!</p>
+    <% end %>
+  </div>
+<% end %>
+
 
   <input type="hidden" name="content[name]" value="<%= params[:result_title] %>" data-bookmark-target="name">
   <input type="hidden" name="content[picture]" value="<%= params[:result_picture] %>" data-bookmark-target="picture">

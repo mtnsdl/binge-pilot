@@ -46,14 +46,16 @@
           <% end %>
       <% end %>
 
+
       <%= link_to bookmarks_checkout_path(id: @random_result["id"], content: @content_format, result_title: @random_result_title, result_picture: @random_result["poster_path"], name: @random_result_name), id: "watch-now", class: "bookmark-button" do %>
         <%= image_tag "watch.svg", alt: "Watch Now", class: "interaction-icon"%>
+
       <% end %>
 
       <%= form_with url: create_bookmark_path, method: :post, data: { like: 'true' } do |form| %>
         <%= hidden_field_tag :liked, true %>
         <%= hidden_field_tag :result_id, @random_result["id"] %>
-        <%= hidden_field_tag :result_title, @random_result["original_title"] %>
+        <%= hidden_field_tag :result_title, @random_result_title %>
         <%= hidden_field_tag :result_picture, @random_result["poster_path"] %>
         <%= hidden_field_tag :mood, @mood_name %>
         <%= hidden_field_tag :content, @content_format %>
