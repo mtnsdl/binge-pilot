@@ -119,8 +119,7 @@ class FetchDataService
       data = JSON.parse(response)
       results = data&.fetch("results", [])
       filtered_results = results.select do |result|
-        # Check for the presence of 'original_title' (movies) or 'original_name' (TV shows) and use regex as needed
-        title = result['original_title'] || result['original_name']
+        title = (result['original_title'] || result['original_name']).to_s
         title =~ /\A[\p{Latin}\p{Mark}\p{Punctuation}\p{Number}\s]+\z/
       end
       return filtered_results
