@@ -47,4 +47,4 @@ export default class extends Controller {
       // Handle any errors that occurred during fetch
     });
   }
-
+}
