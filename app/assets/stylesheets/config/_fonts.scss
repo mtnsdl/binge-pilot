@@ -52,6 +52,17 @@ a {
   text-decoration: none !important;
 }
 
+.password-change {
+  font-family: $headers-font;
+  font-weight: $headers-font-weight;
+  font-size: 1.0em;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
 #content-title {
   font-family: $headers-font;
   font-weight: $headers-font-weight;

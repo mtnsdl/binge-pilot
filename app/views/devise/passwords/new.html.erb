@@ -1,6 +1,7 @@
 <div class="container">
   <div class="headline-container">
-    <h1 class="headline">Forgot your <br> password?</h1>
+    <h1 class="headline">Need a password reset?</h1>
+    <div class="password-change">Put in your email-address and request the reset instructions.</div>
   </div>
   <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
     <%= f.error_notification %>
