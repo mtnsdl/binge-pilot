@@ -6,6 +6,9 @@ require 'date'
 class FetchDataService
   TMDB_BASE_URL = "https://api.themoviedb.org/3/discover".freeze
 
+  # Define a simple blacklist of keywords or titles to exclude
+  BLACKLIST_KEYWORDS = ['WWE', 'wrestling', 'Raw', 'NXT TakeOver XXV', 'christmas', 'wedding', 'war', 'WrestleMania'].freeze
+
   def initialize(content_format, mood_name, genres_by_mood = nil)
     @content_format = content_format
     @mood_name = mood_name
@@ -118,9 +121,14 @@ class FetchDataService
     data = JSON.parse(response)
     results = data&.fetch("results", [])
     filtered_results = results.select do |result|
-      title = (result['original_title'] || result['original_name']).to_s
+      title = (result['original_title'] || result['original_name']).to_s.downcase # Downcase the title
+
+      # Check against the blacklist in a case-insensitive manner
+      next if BLACKLIST_KEYWORDS.any? { |keyword| title.include?(keyword.downcase) }
+
       title =~ /\A[\p{Latin}\p{Mark}\p{Punctuation}\p{Number}\s]+\z/
     end
     filtered_results
   end
+
 end
