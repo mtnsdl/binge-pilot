@@ -1,20 +1,12 @@
 <% checkout_messages = ["Great choice!", "You're going to love this!", "Excellent selection!", "A perfect pick!", "Fantastic choice!"] %>
-<% fallback_message = "Unfortunately, there are no streaming options in your region yet, but you can save it for later." %>
-
+<% fallback_message1 = "Unfortunately streaming isn't available in your region at the moment." %>
+<% fallback_message2 = "Please go back and feel free to save it for later!" %>
 <div class="container" data-controller="bookmark">
   <div class="content-container">
     <% if @all_streaming_providers.values.flatten.empty? %>
-      <h1 class="headline"><%= fallback_message %></h1>
-      <%= image_tag("error.svg", alt: "error", class: "no-provider-error") %>
+      <h2 class="error-headline"><%= fallback_message1 %> <br><br> <%= fallback_message2 %></h1>
+      <%= image_tag("not-available.svg", alt: "error", class: "no-provider-error") %>
       <%# Save Content to Watch later when streaming is available %>
-        <%= form_with url: create_bookmark_save_for_later_path(
-          id: params[:id],
-          result_title: params[:result_title],
-          result_picture: params[:result_picture]), method: :post, data: { like: 'true' } do |form| %>
-          <%= button_tag(type: 'submit', id: "save-for-later", class: "bookmark-button") do %>
-            <%= image_tag "like.svg", alt: "Save for Later", class: "no-provider-icon" %>
-          <% end %>
-        <% end %>
 
     <% else %>
       <h1 class="headline"><%= checkout_messages.sample %></h1>
