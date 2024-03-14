@@ -7,7 +7,7 @@ class FetchDataService
   TMDB_BASE_URL = "https://api.themoviedb.org/3/discover".freeze
 
   # Define a simple blacklist of keywords or titles to exclude
-  BLACKLIST_KEYWORDS = ['WWE', 'wrestling', 'Raw', 'NXT TakeOver XXV', 'christmas', 'wedding', 'war', 'WrestleMania'].freeze
+  BLACKLIST_KEYWORDS = ['WWE', 'wrestling', 'Raw', 'NXT TakeOver XXV', 'christmas', 'wedding', 'war', 'WrestleMania', 'sonic', 'the j team', 'the other zoey', 'twinkle all the way'].freeze
 
   def initialize(content_format, mood_name, genres_by_mood = nil)
     @content_format = content_format
