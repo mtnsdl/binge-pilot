@@ -7,20 +7,48 @@ class BookmarksController < ApplicationController
   before_action :fetch_genres_by_mood, only: :index
   before_action :trigger_fetch_service, only: :index
 
-def index
-  # Example API call, adjust based on your actual implementation
-  service = FetchDataService.new(params[:content], params[:mood])
-  response = service.call
+  def new_search
+    # Your code to handle a new search request
 
-  if response.present? && response.any?
-    @random_result = response.first
-    @random_result_title = @random_result["original_title"] || @random_result["original_name"] || "Title not available"
-    @random_result_name = @random_result["title"] || @random_result["name"] || "Name not available"
-    @random_result_id = @random_result["id"]
-  else
-    redirect_to fallback_path, alert: "Data not available for the selected content and mood." and return
+    # Clear the stored result
+    session.delete(:random_result)
+
+    # Redirect or render as needed
   end
-end
+
+  def index
+    # Check if there's already a result in the session and the request params haven't changed
+    if session[:random_result] && params[:content] == session[:content] && params[:mood] == session[:mood]
+      # Load from session if it exists and the params haven't changed
+      @random_result = session[:random_result]
+      @random_result_title = session[:random_result_title]
+      @random_result_name = session[:random_result_name]
+      @random_result_id = session[:random_result_id]
+    else
+      # Example API call, adjust based on your actual implementation
+      service = FetchDataService.new(params[:content], params[:mood])
+      response = service.call
+
+      if response.present? && response.any?
+        @random_result = response.first
+        @random_result_title = @random_result["original_title"] || @random_result["original_name"] || "Title not available"
+        @random_result_name = @random_result["title"] || @random_result["name"] || "Name not available"
+        @random_result_id = @random_result["id"]
+
+        # Store the current result and params in the session
+        session[:random_result] = @random_result
+        session[:random_result_title] = @random_result_title
+        session[:random_result_name] = @random_result_name
+        session[:random_result_id] = @random_result_id
+        session[:content] = params[:content]
+        session[:mood] = params[:mood]
+        # if action like ir actuon unlike trigger fetch data service again
+      else
+        redirect_to fallback_path, alert: "Data not available for the selected content and mood." and return
+      end
+    end
+  end
+
 
   def create_bookmark
     return unless check_if_bookmark_is_in_db
